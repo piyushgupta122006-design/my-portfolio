@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Piyush Gupta | Developer</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="style.css">
@@ -15,7 +17,7 @@
     <div class="grid-overlay"></div>
 
     <div class="container">
-        <header class="profile-header ios-card glass-tilt">
+        <header class="profile-header ios-card">
             <div class="profile-img-container">
                 <img src="https://ui-avatars.com/api/?name=Piyush+Gupta&background=2C2C2E&color=fff&size=150" alt="Profile" class="profile-img">
                 <div class="status-badge"><span class="dot"></span> Available</div>
@@ -39,19 +41,19 @@
         <section class="section">
             <h3 class="section-title">Tech Arsenal</h3>
             <div class="skills-grid">
-                <div class="skill-pill glass-hover"><i class="fa-brands fa-js" style="color:#F7DF1E"></i> JavaScript</div>
-                <div class="skill-pill glass-hover"><i class="fa-brands fa-react" style="color:#61DAFB"></i> React (Learning)</div>
-                <div class="skill-pill glass-hover"><i class="fa-solid fa-fire" style="color:#FFCA28"></i> Firebase</div>
-                <div class="skill-pill glass-hover"><i class="fa-brands fa-html5" style="color:#E34F26"></i> HTML5</div>
-                <div class="skill-pill glass-hover"><i class="fa-brands fa-css3-alt" style="color:#1572B6"></i> CSS3</div>
-                <div class="skill-pill glass-hover"><i class="fa-solid fa-code-branch" style="color:#F05032"></i> Git</div>
+                <div class="skill-pill"><i class="fa-brands fa-js" style="color:#F7DF1E"></i> JavaScript</div>
+                <div class="skill-pill"><i class="fa-brands fa-react" style="color:#61DAFB"></i> React (Learning)</div>
+                <div class="skill-pill"><i class="fa-solid fa-fire" style="color:#FFCA28"></i> Firebase</div>
+                <div class="skill-pill"><i class="fa-brands fa-html5" style="color:#E34F26"></i> HTML5</div>
+                <div class="skill-pill"><i class="fa-brands fa-css3-alt" style="color:#1572B6"></i> CSS3</div>
+                <div class="skill-pill"><i class="fa-solid fa-code-branch" style="color:#F05032"></i> Git</div>
             </div>
         </section>
 
         <section class="section">
             <h3 class="section-title">Featured Work</h3>
             
-            <div class="project-card ios-card glass-tilt">
+            <div class="project-card ios-card">
                 <div class="card-header">
                     <div class="project-icon"><i class="fa-solid fa-layer-group"></i></div>
                     <div class="live-indicator">Live</div>
@@ -60,7 +62,6 @@
                 <div class="project-info">
                     <h3 class="project-name">FYCS Library Hub</h3>
                     <p class="project-desc">Digital resource manager for BNN College. Features Google Auth, Admin Panel, and real-time database updates.</p>
-                    
                     <div class="tech-stack-mini">
                         <span>NoSQL</span>
                         <span>Auth</span>
@@ -73,10 +74,10 @@
                 </a>
             </div>
 
-            <div class="project-card ios-card glass-tilt" style="opacity: 0.6; pointer-events: none;">
+            <div class="project-card ios-card disabled-card">
                 <div class="card-header">
                     <div class="project-icon"><i class="fa-solid fa-comments"></i></div>
-                    <div class="live-indicator" style="background: #444; color: #aaa;">In Progress</div>
+                    <div class="live-indicator in-progress">In Progress</div>
                 </div>
                 <div class="project-info">
                     <h3 class="project-name">Real-Time Chat</h3>
@@ -91,7 +92,6 @@
     </div>
 
     <div id="toast">Email Copied!</div>
-
     <script src="script.js"></script>
 </body>
 </html>
