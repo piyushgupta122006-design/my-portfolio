@@ -1,4 +1,4 @@
-// 1. Typing Effect Logic
+// 1. Typing Effect
 const roles = ["BSc CS Student", "Problem Solver", "Web Developer"];
 let roleIndex = 0;
 let charIndex = 0;
@@ -6,12 +6,10 @@ let isDeleting = false;
 const typingSpeed = 100;
 const erasingSpeed = 50;
 const delayBetweenRoles = 2000;
-
 const typingElement = document.querySelector('.typing-text');
 
 function typeWriter() {
     const currentRole = roles[roleIndex];
-    
     if (isDeleting) {
         typingElement.textContent = currentRole.substring(0, charIndex - 1);
         charIndex--;
@@ -21,7 +19,6 @@ function typeWriter() {
     }
 
     let typeSpeed = isDeleting ? erasingSpeed : typingSpeed;
-
     if (!isDeleting && charIndex === currentRole.length) {
         typeSpeed = delayBetweenRoles;
         isDeleting = true;
@@ -29,26 +26,19 @@ function typeWriter() {
         isDeleting = false;
         roleIndex = (roleIndex + 1) % roles.length;
     }
-
     setTimeout(typeWriter, typeSpeed);
 }
-
-// Start Typing on Load
 document.addEventListener('DOMContentLoaded', typeWriter);
 
-// 2. Email Copy Function
+// 2. Email Copy
 function copyEmail() {
     const email = "piyushgupta122006@gmail.com";
     navigator.clipboard.writeText(email).then(() => {
-        // Change Button Text Temporary
         const btnText = document.getElementById('emailText');
         const originalText = btnText.innerText;
         btnText.innerText = "Copied!";
-        
-        // Show Toast
         const toast = document.getElementById('toast');
         toast.classList.add('show');
-        
         setTimeout(() => {
             toast.classList.remove('show');
             btnText.innerText = originalText;
@@ -56,7 +46,7 @@ function copyEmail() {
     });
 }
 
-// 3. Scroll Reveal Animation
+// 3. Simple Fade In (Mobile Friendly)
 const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
         if (entry.isIntersecting) {
@@ -66,9 +56,9 @@ const observer = new IntersectionObserver((entries) => {
     });
 }, { threshold: 0.1 });
 
-document.querySelectorAll('.ios-card, .skill-pill').forEach((el, index) => {
+document.querySelectorAll('.ios-card, .skill-pill').forEach((el) => {
     el.style.opacity = 0;
-    el.style.transform = 'translateY(20px)';
-    el.style.transition = `all 0.6s cubic-bezier(0.25, 1, 0.5, 1) ${index * 0.05}s`;
+    el.style.transform = 'translateY(10px)'; // Movement kam kiya lag hatane ke liye
+    el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
     observer.observe(el);
 });
