@@ -30,6 +30,9 @@
     <div class="orb orb-3"></div>
     <div class="grid-overlay"></div>
 
+    <!-- Matrix Code Rain Canvas (Easter Egg) -->
+    <canvas id="matrixCanvas"></canvas>
+
     <!-- ======================================================== -->
     <!-- STICKY GLASS HEADER / NAVBAR                             -->
     <!-- ======================================================== -->
@@ -47,17 +50,24 @@
             <li><a href="#contact" class="nav-link">Contact</a></li>
         </ul>
 
-        <ul class="icons">
-            <li><a href="https://github.com/piyushgupta122006-design" target="_blank" rel="noreferrer" title="GitHub" aria-label="GitHub"><i class="fa-brands fa-github"></i></a></li>
-            <li><a href="https://www.linkedin.com/in/piyush-gupta-377694335/" target="_blank" rel="noreferrer" title="LinkedIn" aria-label="LinkedIn"><i class="fa-brands fa-linkedin"></i></a></li>
-            <li><a href="mailto:piyushgupta122006@gmail.com" title="Email" aria-label="Email"><i class="fa-solid fa-envelope"></i></a></li>
-        </ul>
+        <div class="nav-actions">
+            <!-- Command Palette Trigger Button -->
+            <button class="cmd-palette-btn" id="cmdPaletteTrigger" aria-label="Open Command Menu" title="Press Ctrl+K">
+                <i class="fa-solid fa-terminal"></i> <span>Ctrl K</span>
+            </button>
 
-        <button class="hamburger" id="hamburgerBtn" aria-label="Toggle Menu">
-            <span class="bar"></span>
-            <span class="bar"></span>
-            <span class="bar"></span>
-        </button>
+            <ul class="icons">
+                <li><a href="https://github.com/piyushgupta122006-design" target="_blank" rel="noreferrer" title="GitHub" aria-label="GitHub"><i class="fa-brands fa-github"></i></a></li>
+                <li><a href="https://www.linkedin.com/in/piyush-gupta-377694335/" target="_blank" rel="noreferrer" title="LinkedIn" aria-label="LinkedIn"><i class="fa-brands fa-linkedin"></i></a></li>
+                <li><a href="mailto:piyushgupta122006@gmail.com" title="Email" aria-label="Email"><i class="fa-solid fa-envelope"></i></a></li>
+            </ul>
+
+            <button class="hamburger" id="hamburgerBtn" aria-label="Toggle Menu">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </button>
+        </div>
     </header>
 
     <!-- ======================================================== -->
@@ -102,29 +112,29 @@
                 <!-- Side Hero Stats Bento Column (4 Cols) -->
                 <div class="hero-side-bento bento-span-4">
                     
-                    <!-- Stat Card 1 -->
+                    <!-- Stat Card 1: Live IST Clock -->
                     <div class="bento-card stat-bento-card">
                         <div class="stat-icon-wrapper">
-                            <i class="fa-solid fa-graduation-cap"></i>
+                            <i class="fa-regular fa-clock"></i>
                         </div>
                         <div class="stat-info">
-                            <div class="stat-val">SYCS • 2nd Year</div>
-                            <div class="stat-label">BSc Computer Science @ BNN College</div>
+                            <div class="stat-val live-clock-text" id="liveClock">--:--:-- --</div>
+                            <div class="stat-label"><i class="fa-solid fa-location-dot" style="color: var(--primary-accent); font-size: 11px;"></i> Bhiwandi, Maharashtra (IST)</div>
                         </div>
                     </div>
 
-                    <!-- Stat Card 2 -->
+                    <!-- Stat Card 2: Animated Counter -->
                     <div class="bento-card stat-bento-card">
                         <div class="stat-icon-wrapper">
                             <i class="fa-solid fa-users"></i>
                         </div>
                         <div class="stat-info">
-                            <div class="stat-val">107+ Student Users</div>
+                            <div class="stat-val"><span class="counter" data-target="107">0</span>+ Users</div>
                             <div class="stat-label">Active on BNN CS Study Hub Portal</div>
                         </div>
                     </div>
 
-                    <!-- Stat Card 3 -->
+                    <!-- Stat Card 3: Live Pulse & Focus -->
                     <div class="bento-card stat-bento-card">
                         <div class="stat-icon-wrapper">
                             <i class="fa-solid fa-bolt"></i>
@@ -133,7 +143,7 @@
                             <div class="stat-val">
                                 <span class="status-dot-pulse"></span> Available for Work
                             </div>
-                            <div class="stat-label">Open for Projects, AI & Internships</div>
+                            <div class="stat-label">Focus: Full-Stack & Gemini AI</div>
                         </div>
                     </div>
 
@@ -352,7 +362,7 @@
                             <p><strong>Problem:</strong> BNN College students lacked a unified portal for verified study notes, leading to scattered WhatsApp groups and missing resources.</p>
                             <p><strong>My Role:</strong> Full-stack developer — engineered the React frontend, Firebase Auth/Firestore database, and admin management panel.</p>
                             <p><strong>Tech Decisions:</strong> Leveraged Firebase Serverless for real-time document sync and integrated Google OAuth to eliminate registration friction.</p>
-                            <p><strong>Live Impact:</strong> Adopted by <strong>107+ registered student users</strong> with <strong>117+ study documents</strong> across 29 subjects and <strong>1.2k+ page views</strong>.</p>
+                            <p><strong>Live Impact:</strong> Adopted by <strong><span class="counter" data-target="107">0</span>+ registered student users</strong> with <strong><span class="counter" data-target="117">0</span>+ study documents</strong> across <span class="counter" data-target="29">0</span> subjects and <strong>1.2k+ page views</strong>.</p>
                         </div>
 
                         <div class="project-btns">
@@ -594,6 +604,53 @@
 
         </div>
     </section>
+
+    <!-- ======================================================== -->
+    <!-- COMMAND PALETTE MODAL (CTRL+K / CMD+K)                   -->
+    <!-- ======================================================== -->
+    <div class="cmd-modal-overlay" id="cmdModalOverlay">
+        <div class="cmd-modal">
+            <div class="cmd-header">
+                <i class="fa-solid fa-terminal"></i>
+                <input type="text" class="cmd-input" id="cmdInput" placeholder="Type a command or search (e.g. projects, resume, email, matrix)..." autocomplete="off">
+                <span class="cmd-esc-badge">ESC</span>
+            </div>
+            <div class="cmd-list" id="cmdList">
+                <div class="cmd-item" data-action="goto-projects">
+                    <div class="cmd-item-left"><i class="fa-solid fa-layer-group"></i> <span>Explore Featured Projects</span></div>
+                    <span class="cmd-badge">Jump</span>
+                </div>
+                <div class="cmd-item" data-action="goto-about">
+                    <div class="cmd-item-left"><i class="fa-solid fa-user-astronaut"></i> <span>About Me & 3D Avatar</span></div>
+                    <span class="cmd-badge">Jump</span>
+                </div>
+                <div class="cmd-item" data-action="goto-education">
+                    <div class="cmd-item-left"><i class="fa-solid fa-graduation-cap"></i> <span>Education & BNN College</span></div>
+                    <span class="cmd-badge">Jump</span>
+                </div>
+                <div class="cmd-item" data-action="goto-contact">
+                    <div class="cmd-item-left"><i class="fa-solid fa-envelope"></i> <span>Contact & Message Form</span></div>
+                    <span class="cmd-badge">Jump</span>
+                </div>
+                <div class="cmd-item" data-action="download-resume">
+                    <div class="cmd-item-left"><i class="fa-solid fa-file-arrow-down"></i> <span>Download Resume (PDF)</span></div>
+                    <span class="cmd-badge">PDF</span>
+                </div>
+                <div class="cmd-item" data-action="copy-email">
+                    <div class="cmd-item-left"><i class="fa-regular fa-copy"></i> <span>Copy Email Address</span></div>
+                    <span class="cmd-badge">Action</span>
+                </div>
+                <div class="cmd-item" data-action="open-github">
+                    <div class="cmd-item-left"><i class="fa-brands fa-github"></i> <span>Open GitHub Profile</span></div>
+                    <span class="cmd-badge">Link</span>
+                </div>
+                <div class="cmd-item" data-action="toggle-matrix">
+                    <div class="cmd-item-left"><i class="fa-solid fa-code"></i> <span>Matrix Rain Cyber Mode</span></div>
+                    <span class="cmd-badge">Easter Egg</span>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <!-- ======================================================== -->
     <!-- FOOTER                                                   -->
