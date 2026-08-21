@@ -1,7 +1,23 @@
 // ==========================================================================
-// PIYUSH GUPTA - INTERACTIVE BENTO PORTFOLIO ENGINE
-// Features: Spotlight Glow, Live Clock, Animated Counters, Command Palette, Matrix FX
+// PIYUSH GUPTA — PREMIUM INTERACTIVE PORTFOLIO ENGINE
+// Features: Preloader, Custom Cursor, Magnetic Buttons, 3D Tilt,
+//           Live Clock, Counters, Command Palette, Matrix FX,
+//           Scroll Progress, Section Dots, GitHub Heatmap
 // ==========================================================================
+
+// --- 0. CINEMATIC PRELOADER ---
+window.addEventListener('load', () => {
+    const preloader = document.getElementById('preloader');
+    if (preloader) {
+        setTimeout(() => {
+            preloader.classList.add('exit');
+            setTimeout(() => {
+                preloader.style.display = 'none';
+                document.body.classList.remove('preloader-active');
+            }, 850);
+        }, 2800);
+    }
+});
 
 document.addEventListener('DOMContentLoaded', () => {
 
@@ -51,14 +67,26 @@ document.addEventListener('DOMContentLoaded', () => {
     const navbar = document.getElementById('navbar');
     const navLinks = document.querySelectorAll('.nav-link');
     const sections = document.querySelectorAll('section[id]');
+    const sectionDots = document.querySelectorAll('.sec-dot');
+    const scrollProgress = document.getElementById('scrollProgress');
 
     window.addEventListener('scroll', () => {
+        // Sticky navbar
         if (window.scrollY > 40) {
             navbar.classList.add('scroll');
         } else {
             navbar.classList.remove('scroll');
         }
 
+        // Scroll Progress Bar
+        if (scrollProgress) {
+            const scrollTop = document.documentElement.scrollTop;
+            const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const progress = scrollHeight > 0 ? (scrollTop / scrollHeight) * 100 : 0;
+            scrollProgress.style.width = `${progress}%`;
+        }
+
+        // Scroll Spy for Nav Links + Section Dots
         let currentSectionId = '';
         const scrollPosition = window.scrollY + 140;
 
@@ -74,6 +102,13 @@ document.addEventListener('DOMContentLoaded', () => {
             link.classList.remove('active');
             if (link.getAttribute('href') === `#${currentSectionId}`) {
                 link.classList.add('active');
+            }
+        });
+
+        sectionDots.forEach(dot => {
+            dot.classList.remove('active');
+            if (dot.getAttribute('data-section') === currentSectionId) {
+                dot.classList.add('active');
             }
         });
     });
@@ -145,12 +180,99 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // --- 7. LIVE BHIWANDI IST CLOCK ---
+    // --- 7. CUSTOM ANIMATED CURSOR ---
+    const cursorDot = document.getElementById('cursorDot');
+    const cursorRing = document.getElementById('cursorRing');
+    let mouseX = -100, mouseY = -100;
+    let ringX = -100, ringY = -100;
+    const isDesktopCursor = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+
+    if (isDesktopCursor && cursorDot && cursorRing) {
+        document.addEventListener('mousemove', (e) => {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+            cursorDot.style.left = `${mouseX}px`;
+            cursorDot.style.top = `${mouseY}px`;
+        });
+
+        function animateCursorRing() {
+            ringX += (mouseX - ringX) * 0.15;
+            ringY += (mouseY - ringY) * 0.15;
+            cursorRing.style.left = `${ringX}px`;
+            cursorRing.style.top = `${ringY}px`;
+            requestAnimationFrame(animateCursorRing);
+        }
+        animateCursorRing();
+
+        // Enlarge cursor on interactive elements
+        const interactiveEls = document.querySelectorAll('a, button, input, textarea, .btn, .photo-card, .cmd-item, .skill-item');
+        interactiveEls.forEach(el => {
+            el.addEventListener('mouseenter', () => {
+                cursorDot.classList.add('cursor-hover');
+                cursorRing.classList.add('cursor-hover');
+            });
+            el.addEventListener('mouseleave', () => {
+                cursorDot.classList.remove('cursor-hover');
+                cursorRing.classList.remove('cursor-hover');
+            });
+        });
+    }
+
+    // --- 8. MAGNETIC BUTTONS (Desktop Only) ---
+    if (isDesktopCursor) {
+        const magneticElements = document.querySelectorAll('.magnetic');
+        magneticElements.forEach(el => {
+            el.addEventListener('mousemove', (e) => {
+                const rect = el.getBoundingClientRect();
+                const x = e.clientX - rect.left - rect.width / 2;
+                const y = e.clientY - rect.top - rect.height / 2;
+                el.style.transform = `translate(${x * 0.25}px, ${y * 0.25}px)`;
+            });
+            el.addEventListener('mouseleave', () => {
+                el.style.transform = '';
+            });
+        });
+    }
+
+    // --- 9. 3D TILT PHYSICS ON PROJECT CARDS (Desktop Only) ---
+    if (isDesktopCursor) {
+        const tiltCards = document.querySelectorAll('.project-bento-card');
+        tiltCards.forEach(card => {
+            // Add glare overlay dynamically
+            const glare = document.createElement('div');
+            glare.classList.add('tilt-glare');
+            card.appendChild(glare);
+
+            card.addEventListener('mousemove', (e) => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                const centerX = rect.width / 2;
+                const centerY = rect.height / 2;
+                const rotateX = ((y - centerY) / centerY) * -7;
+                const rotateY = ((x - centerX) / centerX) * 7;
+
+                card.style.transform = `perspective(800px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.02)`;
+
+                // Glare follows mouse
+                const glareX = (x / rect.width) * 100;
+                const glareY = (y / rect.height) * 100;
+                glare.style.background = `radial-gradient(circle at ${glareX}% ${glareY}%, rgba(255,255,255,0.10) 0%, transparent 55%)`;
+                glare.style.opacity = '1';
+            });
+
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = '';
+                glare.style.opacity = '0';
+            });
+        });
+    }
+
+    // --- 10. LIVE BHIWANDI IST CLOCK ---
     const liveClock = document.getElementById('liveClock');
     function updateClock() {
         if (!liveClock) return;
         const now = new Date();
-        // Format for Indian Standard Time (IST)
         const options = {
             timeZone: 'Asia/Kolkata',
             hour: '2-digit',
@@ -163,7 +285,7 @@ document.addEventListener('DOMContentLoaded', () => {
     updateClock();
     setInterval(updateClock, 1000);
 
-    // --- 8. ANIMATED NUMBER COUNTERS ---
+    // --- 11. ANIMATED NUMBER COUNTERS ---
     const counters = document.querySelectorAll('.counter');
     const counterObserver = new IntersectionObserver((entries, observer) => {
         entries.forEach(entry => {
@@ -171,7 +293,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 const counter = entry.target;
                 const target = +counter.getAttribute('data-target');
                 let count = 0;
-                const speed = 1200; // Total animation duration in ms
+                const speed = 1200;
                 const stepTime = 20;
                 const totalSteps = speed / stepTime;
                 const increment = target / totalSteps;
@@ -193,11 +315,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
     counters.forEach(c => counterObserver.observe(c));
 
-    // --- 9. COMMAND PALETTE (CTRL+K / CMD+K) ---
+    // --- 12. COMMAND PALETTE (CTRL+K / CMD+K) ---
     const cmdTrigger = document.getElementById('cmdPaletteTrigger');
     const cmdOverlay = document.getElementById('cmdModalOverlay');
     const cmdInput = document.getElementById('cmdInput');
-    const cmdList = document.getElementById('cmdList');
     const cmdItems = document.querySelectorAll('.cmd-item');
 
     function openCommandPalette() {
@@ -215,11 +336,8 @@ document.addEventListener('DOMContentLoaded', () => {
         cmdOverlay.classList.remove('open');
     }
 
-    if (cmdTrigger) {
-        cmdTrigger.addEventListener('click', openCommandPalette);
-    }
+    if (cmdTrigger) cmdTrigger.addEventListener('click', openCommandPalette);
 
-    // Keyboard shortcuts: Ctrl+K, Cmd+K, Escape
     document.addEventListener('keydown', (e) => {
         if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'k') {
             e.preventDefault();
@@ -243,33 +361,23 @@ document.addEventListener('DOMContentLoaded', () => {
         const q = query.toLowerCase().trim();
         cmdItems.forEach(item => {
             const text = item.textContent.toLowerCase();
-            if (text.includes(q)) {
-                item.style.display = 'flex';
-            } else {
-                item.style.display = 'none';
-            }
+            item.style.display = text.includes(q) ? 'flex' : 'none';
         });
     }
 
     if (cmdInput) {
-        cmdInput.addEventListener('input', (e) => {
-            filterCommands(e.target.value);
-        });
+        cmdInput.addEventListener('input', (e) => filterCommands(e.target.value));
 
         cmdInput.addEventListener('keydown', (e) => {
             if (e.key === 'Enter') {
                 const visibleItem = Array.from(cmdItems).find(i => i.style.display !== 'none');
-                if (visibleItem) {
-                    executeCommand(visibleItem.getAttribute('data-action'));
-                }
+                if (visibleItem) executeCommand(visibleItem.getAttribute('data-action'));
             }
         });
     }
 
     cmdItems.forEach(item => {
-        item.addEventListener('click', () => {
-            executeCommand(item.getAttribute('data-action'));
-        });
+        item.addEventListener('click', () => executeCommand(item.getAttribute('data-action')));
     });
 
     function executeCommand(action) {
@@ -283,6 +391,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 break;
             case 'goto-education':
                 document.getElementById('education')?.scrollIntoView({ behavior: 'smooth' });
+                break;
+            case 'goto-github':
+                document.getElementById('github')?.scrollIntoView({ behavior: 'smooth' });
                 break;
             case 'goto-contact':
                 document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
@@ -299,12 +410,10 @@ document.addEventListener('DOMContentLoaded', () => {
             case 'toggle-matrix':
                 toggleMatrixRain();
                 break;
-            default:
-                break;
         }
     }
 
-    // --- 10. MATRIX CODE RAIN EASTER EGG ---
+    // --- 13. MATRIX CODE RAIN EASTER EGG ---
     let matrixInterval = null;
     function toggleMatrixRain() {
         const canvas = document.getElementById('matrixCanvas');
@@ -329,31 +438,90 @@ document.addEventListener('DOMContentLoaded', () => {
         function drawMatrix() {
             ctx.fillStyle = 'rgba(4, 7, 17, 0.08)';
             ctx.fillRect(0, 0, canvas.width, canvas.height);
-
             ctx.fillStyle = '#22d3ee';
             ctx.font = `${fontSize}px 'JetBrains Mono', monospace`;
 
             for (let i = 0; i < drops.length; i++) {
                 const text = characters.charAt(Math.floor(Math.random() * characters.length));
                 ctx.fillText(text, i * fontSize, drops[i] * fontSize);
-
-                if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
-                    drops[i] = 0;
-                }
+                if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) drops[i] = 0;
                 drops[i]++;
             }
         }
 
         matrixInterval = setInterval(drawMatrix, 35);
-
-        // Auto stop matrix rain after 8 seconds
         setTimeout(() => {
             canvas.style.display = 'none';
             if (matrixInterval) clearInterval(matrixInterval);
         }, 8000);
     }
 
-    // --- 11. CONTACT FORM SUBMISSION (Web3Forms API) ---
+    // --- 14. GITHUB ACTIVITY API & HEATMAP ---
+    async function fetchGitHubData() {
+        const username = 'piyushgupta122006-design';
+        try {
+            const [profileRes, eventsRes] = await Promise.all([
+                fetch(`https://api.github.com/users/${username}`),
+                fetch(`https://api.github.com/users/${username}/events/public?per_page=100`)
+            ]);
+
+            if (!profileRes.ok || !eventsRes.ok) throw new Error('API error');
+
+            const profile = await profileRes.json();
+            const events = await eventsRes.json();
+
+            // Update stats
+            const ghRepos = document.getElementById('ghRepos');
+            const ghFollowers = document.getElementById('ghFollowers');
+            const ghEvents = document.getElementById('ghEvents');
+            if (ghRepos) ghRepos.textContent = profile.public_repos ?? '—';
+            if (ghFollowers) ghFollowers.textContent = profile.followers ?? '—';
+            if (ghEvents) ghEvents.textContent = Array.isArray(events) ? events.length : '—';
+
+            // Build heatmap
+            buildHeatmap(Array.isArray(events) ? events : []);
+        } catch (err) {
+            console.warn('GitHub API fallback:', err);
+            buildHeatmap([]);
+        }
+    }
+
+    function buildHeatmap(events) {
+        const grid = document.getElementById('heatmapGrid');
+        if (!grid) return;
+
+        const now = new Date();
+        const totalDays = 84; // 12 weeks
+        const dayCounts = {};
+
+        events.forEach(event => {
+            if (event.created_at) {
+                const date = new Date(event.created_at).toDateString();
+                dayCounts[date] = (dayCounts[date] || 0) + 1;
+            }
+        });
+
+        let cellsHTML = '';
+        for (let i = totalDays - 1; i >= 0; i--) {
+            const date = new Date(now);
+            date.setDate(date.getDate() - i);
+            const count = dayCounts[date.toDateString()] || 0;
+            let level = 0;
+            if (count >= 6) level = 4;
+            else if (count >= 4) level = 3;
+            else if (count >= 2) level = 2;
+            else if (count >= 1) level = 1;
+
+            const dateStr = date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+            cellsHTML += `<div class="heatmap-cell" data-level="${level}" title="${dateStr}: ${count} events"></div>`;
+        }
+
+        grid.innerHTML = cellsHTML;
+    }
+
+    fetchGitHubData();
+
+    // --- 15. CONTACT FORM SUBMISSION (Web3Forms API) ---
     const contactForm = document.getElementById('contactForm');
     const submitBtn = document.getElementById('submitBtn');
     const formResult = document.getElementById('formResult');
@@ -361,7 +529,6 @@ document.addEventListener('DOMContentLoaded', () => {
     if (contactForm) {
         contactForm.addEventListener('submit', async (e) => {
             e.preventDefault();
-            
             submitBtn.classList.add('sending');
             submitBtn.disabled = true;
             formResult.style.display = 'none';
@@ -391,15 +558,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 submitBtn.classList.remove('sending');
                 submitBtn.disabled = false;
                 formResult.style.display = 'block';
-
-                setTimeout(() => {
-                    formResult.style.display = 'none';
-                }, 6000);
+                setTimeout(() => { formResult.style.display = 'none'; }, 6000);
             }
         });
     }
 
-    // --- 12. SCROLL REVEAL ANIMATIONS ---
+    // --- 16. SCROLL REVEAL ANIMATIONS ---
     const revealElements = document.querySelectorAll('.section-header, .bento-card');
     const revealObserver = new IntersectionObserver((entries, observer) => {
         entries.forEach(entry => {
@@ -438,9 +602,7 @@ function copyEmail() {
 
         if (toast) {
             toast.classList.add('show');
-            setTimeout(() => {
-                toast.classList.remove('show');
-            }, 2500);
+            setTimeout(() => { toast.classList.remove('show'); }, 2500);
         }
     }).catch(() => {
         window.location.href = `mailto:${email}`;
