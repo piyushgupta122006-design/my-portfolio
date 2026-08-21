@@ -185,7 +185,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // --- 7. SCROLL REVEAL ANIMATIONS ---
-    const revealElements = document.querySelectorAll('.section-header, .ios-card, .about-content, .skills-section');
+    const revealElements = document.querySelectorAll('.section-header, .bento-card');
     const revealObserver = new IntersectionObserver((entries, observer) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
