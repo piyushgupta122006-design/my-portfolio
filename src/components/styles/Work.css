@@ -279,31 +279,147 @@
 @media only screen and (max-width: 900px) {
   .work-section { padding: 50px 0; }
   .work-section h2 { font-size: 40px; margin-bottom: 30px; }
-  .carousel-number h3 { font-size: 35px; }
-  .carousel-details h4 { font-size: 20px; }
-  .carousel-content { gap: 20px; }
-  .carousel-slide { padding: 30px 0; }
+  .carousel-track-container {
+    width: 100% !important;
+    overflow: hidden !important;
+  }
+  .carousel-slide {
+    width: 100% !important;
+    min-width: 100% !important;
+    max-width: 100% !important;
+    flex: 0 0 100% !important;
+    padding: 24px 0 !important;
+    box-sizing: border-box !important;
+    overflow: hidden !important;
+  }
+  .carousel-content {
+    width: 100% !important;
+    max-width: 100% !important;
+    gap: 20px;
+    box-sizing: border-box !important;
+  }
+  .carousel-info {
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+  }
 }
 
 @media only screen and (max-width: 600px) {
   .work-section { padding: 40px 0; }
   .work-section h2 { font-size: 32px; margin-bottom: 20px; }
-  .carousel-slide { padding: 15px 0; }
+  
+  .carousel-track-container {
+    width: 100% !important;
+    overflow: hidden !important;
+  }
+  .carousel-track {
+    width: 100% !important;
+  }
+  .carousel-slide {
+    width: 100% !important;
+    min-width: 100% !important;
+    max-width: 100% !important;
+    flex: 0 0 100% !important;
+    padding: 16px 8px !important;
+    box-sizing: border-box !important;
+    overflow: hidden !important;
+  }
+  .carousel-content {
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+    gap: 16px !important;
+  }
+  .carousel-info {
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+    gap: 10px !important;
+  }
+  .carousel-number {
+    min-width: 32px;
+  }
+  .carousel-number h3 {
+    font-size: 26px !important;
+    opacity: 0.4;
+  }
+  .carousel-details {
+    width: calc(100% - 42px) !important;
+    max-width: calc(100% - 42px) !important;
+    box-sizing: border-box !important;
+    overflow: hidden !important;
+    gap: 6px !important;
+  }
+  .carousel-details h4 {
+    font-size: 18px !important;
+    line-height: 24px !important;
+    word-break: break-word !important;
+    overflow-wrap: break-word !important;
+    white-space: normal !important;
+  }
+  .carousel-category {
+    font-size: 13px !important;
+    line-height: 18px !important;
+    word-break: break-word !important;
+    overflow-wrap: break-word !important;
+    white-space: normal !important;
+  }
+  .carousel-role-tag {
+    font-size: 12px !important;
+    line-height: 18px !important;
+    word-break: break-word !important;
+    overflow-wrap: break-word !important;
+    white-space: normal !important;
+  }
+  .carousel-tools p {
+    font-size: 13px !important;
+    line-height: 18px !important;
+    word-break: break-word !important;
+    overflow-wrap: break-word !important;
+    white-space: normal !important;
+  }
+  .private-repo-badge span {
+    font-size: 11px !important;
+    padding: 3px 10px !important;
+    white-space: normal !important;
+    display: inline-block;
+  }
+
+  .carousel-image-wrapper {
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+    padding: 0 4px !important;
+  }
+  .work-image {
+    width: 100% !important;
+    max-width: 100% !important;
+    justify-content: center !important;
+  }
+  .work-image-in {
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+  }
+  .work-image img {
+    width: 100% !important;
+    max-width: 100% !important;
+    max-height: 220px !important;
+    object-fit: cover !important;
+    border-radius: 12px !important;
+  }
+
   .carousel-arrow {
     width: 36px;
     height: 36px;
     font-size: 15px;
     background: rgba(4, 7, 17, 0.9);
     border-color: rgba(34, 211, 238, 0.4);
+    z-index: 5;
   }
-  .carousel-arrow-left { left: 2px; }
-  .carousel-arrow-right { right: 2px; }
-  .carousel-info { gap: 12px; }
-  .carousel-number h3 { font-size: 28px; }
-  .carousel-details h4 { font-size: 18px; }
-  .carousel-category { font-size: 13px; }
-  .carousel-role-tag { font-size: 12px; }
-  .carousel-tools p { font-size: 13px; }
-  .work-image img { max-height: 200px; border-radius: 12px; }
+  .carousel-arrow-left { left: 4px; }
+  .carousel-arrow-right { right: 4px; }
 }
+
 

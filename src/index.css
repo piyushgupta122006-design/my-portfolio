@@ -325,6 +325,12 @@ main {
   }
 }
 
+@media screen and (max-width: 768px) {
+  .tech-3d-wrapper {
+    display: none !important;
+  }
+}
+
 @media screen and (max-width: 600px) {
   .techstack-section {
     padding: 50px 0 70px;
@@ -336,9 +342,9 @@ main {
     font-size: 14px;
   }
   .tech-3d-wrapper {
-    height: 320px;
-    margin-bottom: 25px;
+    display: none !important;
   }
+
   .tech-canvas-badge {
     font-size: 11px;
     padding: 6px 14px;
