@@ -8,18 +8,29 @@ import {
   CylinderCollider,
   RapierRigidBody,
 } from "@react-three/rapier";
+import {
+  FaReact,
+  FaJs,
+  FaPython,
+  FaNodeJs,
+  FaHtml5,
+  FaCss3Alt,
+  FaGitAlt,
+} from "react-icons/fa6";
+import { SiFirebase, SiVite } from "react-icons/si";
+import { BsStars } from "react-icons/bs";
 
 const techIcons = [
-  { name: "React", color: "#61DAFB", bg: "#041528" },
-  { name: "JavaScript", color: "#F7DF1E", bg: "#241f02" },
-  { name: "Python", color: "#38bdf8", bg: "#0f172a" },
-  { name: "Firebase", color: "#FFCA28", bg: "#2a1e05" },
-  { name: "Node.js", color: "#22c55e", bg: "#052010" },
-  { name: "Vite", color: "#818cf8", bg: "#1e1b4b" },
-  { name: "HTML5", color: "#F06529", bg: "#281206" },
-  { name: "CSS3", color: "#2965F1", bg: "#061328" },
-  { name: "Gemini AI", color: "#a855f7", bg: "#1f0933" },
-  { name: "Git", color: "#F1502F", bg: "#2a0d05" },
+  { name: "React", color: "#61DAFB", bg: "#041528", icon: <FaReact /> },
+  { name: "JavaScript", color: "#F7DF1E", bg: "#241f02", icon: <FaJs /> },
+  { name: "Python", color: "#38bdf8", bg: "#0f172a", icon: <FaPython /> },
+  { name: "Firebase", color: "#FFCA28", bg: "#2a1e05", icon: <SiFirebase /> },
+  { name: "Node.js", color: "#22c55e", bg: "#052010", icon: <FaNodeJs /> },
+  { name: "Vite", color: "#818cf8", bg: "#1e1b4b", icon: <SiVite /> },
+  { name: "HTML5", color: "#F06529", bg: "#281206", icon: <FaHtml5 /> },
+  { name: "CSS3", color: "#2965F1", bg: "#061328", icon: <FaCss3Alt /> },
+  { name: "Gemini AI", color: "#a855f7", bg: "#1f0933", icon: <BsStars /> },
+  { name: "Git", color: "#F1502F", bg: "#2a0d05", icon: <FaGitAlt /> },
 ];
 
 function createTechTexture(name: string, color: string, bg: string): THREE.CanvasTexture {
@@ -28,25 +39,21 @@ function createTechTexture(name: string, color: string, bg: string): THREE.Canva
   canvas.height = 512;
   const ctx = canvas.getContext("2d")!;
 
-  // Background
   ctx.fillStyle = bg;
   ctx.fillRect(0, 0, 512, 512);
 
-  // Border ring
   ctx.strokeStyle = color;
   ctx.lineWidth = 14;
   ctx.beginPath();
   ctx.arc(256, 256, 230, 0, Math.PI * 2);
   ctx.stroke();
 
-  // Glow circle
   const grad = ctx.createRadialGradient(256, 256, 40, 256, 256, 200);
   grad.addColorStop(0, color + "40");
   grad.addColorStop(1, "transparent");
   ctx.fillStyle = grad;
   ctx.fillRect(0, 0, 512, 512);
 
-  // Text
   ctx.fillStyle = "#ffffff";
   ctx.font = "bold 64px 'Outfit', sans-serif";
   ctx.textAlign = "center";
@@ -121,11 +128,7 @@ function SphereGeo({ scale, material, isActive }: SphereProps) {
   );
 }
 
-type PointerProps = {
-  isActive: boolean;
-};
-
-function Pointer({ isActive }: PointerProps) {
+function Pointer({ isActive }: { isActive: boolean }) {
   const ref = useRef<RapierRigidBody>(null);
   const vec = useMemo(() => new THREE.Vector3(), []);
 
@@ -156,8 +159,14 @@ function Pointer({ isActive }: PointerProps) {
 
 const TechStack = () => {
   const [isActive, setIsActive] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
+    const checkScreen = () => {
+      setIsMobile(window.innerWidth <= 900);
+    };
+    checkScreen();
+
     const handleScroll = () => {
       const workEl = document.getElementById("work");
       if (workEl) {
@@ -166,9 +175,11 @@ const TechStack = () => {
       }
     };
 
+    window.addEventListener("resize", checkScreen);
     window.addEventListener("scroll", handleScroll);
     handleScroll();
     return () => {
+      window.removeEventListener("resize", checkScreen);
       window.removeEventListener("scroll", handleScroll);
     };
   }, []);
@@ -192,34 +203,54 @@ const TechStack = () => {
     <div className="techstack">
       <h2>Tech Stack</h2>
 
-      <Canvas
-        shadows
-        gl={{ alpha: true, antialias: true }}
-        camera={{ position: [0, 0, 20], fov: 32.5, near: 1, far: 100 }}
-        className="tech-canvas"
-      >
-        <ambientLight intensity={1.5} />
-        <spotLight
-          position={[20, 20, 25]}
-          penumbra={1}
-          angle={0.3}
-          color="#22d3ee"
-          intensity={2}
-          castShadow
-        />
-        <directionalLight position={[0, 5, -4]} intensity={1.8} />
-        <Physics gravity={[0, 0, 0]}>
-          <Pointer isActive={isActive} />
-          {spheres.map((props, i) => (
-            <SphereGeo
-              key={i}
-              {...props}
-              material={materials[i % materials.length]}
-              isActive={isActive}
-            />
+      {isMobile ? (
+        <div className="mobile-tech-grid">
+          {techIcons.map((tech, idx) => (
+            <div
+              key={idx}
+              className="mobile-tech-card"
+              style={{
+                borderColor: `${tech.color}40`,
+                boxShadow: `0 4px 20px ${tech.color}15`,
+              }}
+            >
+              <div className="mobile-tech-icon" style={{ color: tech.color }}>
+                {tech.icon}
+              </div>
+              <span className="mobile-tech-name">{tech.name}</span>
+            </div>
           ))}
-        </Physics>
-      </Canvas>
+        </div>
+      ) : (
+        <Canvas
+          shadows
+          gl={{ alpha: true, antialias: true }}
+          camera={{ position: [0, 0, 20], fov: 32.5, near: 1, far: 100 }}
+          className="tech-canvas"
+        >
+          <ambientLight intensity={1.5} />
+          <spotLight
+            position={[20, 20, 25]}
+            penumbra={1}
+            angle={0.3}
+            color="#22d3ee"
+            intensity={2}
+            castShadow
+          />
+          <directionalLight position={[0, 5, -4]} intensity={1.8} />
+          <Physics gravity={[0, 0, 0]}>
+            <Pointer isActive={isActive} />
+            {spheres.map((props, i) => (
+              <SphereGeo
+                key={i}
+                {...props}
+                material={materials[i % materials.length]}
+                isActive={isActive}
+              />
+            ))}
+          </Physics>
+        </Canvas>
+      )}
     </div>
   );
 };

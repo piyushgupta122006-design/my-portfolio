@@ -52,12 +52,38 @@
   color: var(--accentColor);
 }
 
+@media only screen and (max-width: 600px) {
+  .header {
+    width: 92%;
+    padding: 12px 18px;
+    background: rgba(4, 7, 17, 0.85);
+    backdrop-filter: blur(16px);
+    border: 1px solid rgba(34, 211, 238, 0.2);
+    border-radius: 40px;
+    top: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+  }
+  .header ul {
+    flex-direction: row;
+    column-gap: 16px;
+    font-size: 13px;
+    align-items: center;
+  }
+  .header ul li {
+    letter-spacing: 0.5px;
+  }
+  .navbar-title {
+    font-size: 16px;
+  }
+}
+
 @media only screen and (min-width: 500px) {
   .header {
     padding: 20px 0px;
   }
   .header ul {
     flex-direction: row;
+
     align-items: center;
     font-size: 14px;
   }

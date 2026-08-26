@@ -299,3 +299,24 @@
     font-size: 100px;
   }
 }
+
+@media only screen and (max-width: 600px) {
+  .loading-header {
+    padding: 14px 18px;
+    width: 100%;
+  }
+  .loader-title {
+    font-size: 16px;
+  }
+  .loaderGame-container {
+    transform: scale(0.3);
+  }
+  .loading-button {
+    padding: 16px 36px;
+    font-size: 16px;
+  }
+  .loading-marquee {
+    font-size: 34px;
+  }
+}
+

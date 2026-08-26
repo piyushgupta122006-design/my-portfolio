@@ -33,11 +33,28 @@
   color: #f8fafc;
 }
 
+@media only screen and (max-width: 600px) {
+  .about-me {
+    width: 100%;
+    max-width: 100%;
+    padding: 30px 10px;
+  }
+  .about-me h3 {
+    font-size: 18px;
+    letter-spacing: 4px;
+  }
+  .about-me p {
+    font-size: 20px;
+    line-height: 28px;
+  }
+}
+
 @media only screen and (min-width: 600px) {
   .about-section {
     justify-content: center;
   }
 }
+
 
 @media only screen and (min-width: 768px) {
   .about-me {

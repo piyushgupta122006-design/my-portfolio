@@ -284,3 +284,26 @@
   .carousel-content { gap: 20px; }
   .carousel-slide { padding: 30px 0; }
 }
+
+@media only screen and (max-width: 600px) {
+  .work-section { padding: 40px 0; }
+  .work-section h2 { font-size: 32px; margin-bottom: 20px; }
+  .carousel-slide { padding: 15px 0; }
+  .carousel-arrow {
+    width: 36px;
+    height: 36px;
+    font-size: 15px;
+    background: rgba(4, 7, 17, 0.9);
+    border-color: rgba(34, 211, 238, 0.4);
+  }
+  .carousel-arrow-left { left: 2px; }
+  .carousel-arrow-right { right: 2px; }
+  .carousel-info { gap: 12px; }
+  .carousel-number h3 { font-size: 28px; }
+  .carousel-details h4 { font-size: 18px; }
+  .carousel-category { font-size: 13px; }
+  .carousel-role-tag { font-size: 12px; }
+  .carousel-tools p { font-size: 13px; }
+  .work-image img { max-height: 200px; border-radius: 12px; }
+}
+

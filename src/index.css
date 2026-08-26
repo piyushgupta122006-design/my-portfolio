@@ -138,7 +138,64 @@ main {
 }
 
 @media screen and (max-width: 900px) {
+  .techstack {
+    height: auto;
+    margin-top: 40px;
+    margin-bottom: 40px;
+    padding: 20px 0;
+  }
   .techstack h2 {
-    font-size: 40px;
+    font-size: 38px;
+    position: relative;
+    top: 0;
+    margin-bottom: 30px;
+  }
+  .mobile-tech-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 14px;
+    width: 90%;
+    max-width: 500px;
+    margin: 0 auto;
+    padding: 10px 0 30px;
+  }
+  .mobile-tech-card {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px 16px;
+    border-radius: 16px;
+    background: rgba(12, 19, 36, 0.75);
+    border: 1px solid rgba(34, 211, 238, 0.2);
+    backdrop-filter: blur(12px);
+    transition: transform 0.2s ease;
+  }
+  .mobile-tech-icon {
+    font-size: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .mobile-tech-name {
+    font-size: 14px;
+    font-weight: 600;
+    color: #f8fafc;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .mobile-tech-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    width: 92%;
+  }
+  .mobile-tech-card {
+    padding: 12px 14px;
+  }
+  .mobile-tech-name {
+    font-size: 13px;
+  }
+  .mobile-tech-icon {
+    font-size: 20px;
   }
 }

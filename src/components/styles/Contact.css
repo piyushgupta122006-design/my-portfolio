@@ -109,3 +109,11 @@ a.contact-social:hover {
     width: calc(100% - 25px);
   }
 }
+
+@media only screen and (max-width: 600px) {
+  .contact-section h3 { font-size: 34px; margin-bottom: 20px; }
+  .contact-box h2 { font-size: 18px; line-height: 26px; }
+  a.contact-social { font-size: 18px; }
+  .contact-flex { gap: 28px; }
+}
+
