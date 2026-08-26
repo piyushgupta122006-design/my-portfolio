@@ -1,9 +1,12 @@
 import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { SimpleSplitText } from "./splitText";
 
 export function initialFX() {
   document.body.style.overflowY = "auto";
+  ScrollTrigger.refresh();
   const mainEl = document.getElementsByTagName("main")[0];
+
   if (mainEl) mainEl.classList.add("main-active");
 
   gsap.to("body", {
