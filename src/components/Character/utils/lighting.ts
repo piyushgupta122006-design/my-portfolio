@@ -1,51 +1,66 @@
 import * as THREE from "three";
+import { RGBELoader } from "three-stdlib";
 import { gsap } from "gsap";
 
 const setLighting = (scene: THREE.Scene) => {
-  // Ambient light for base visibility
-  const ambientLight = new THREE.AmbientLight(0x1e293b, 1.2);
+  // Ambient base light
+  const ambientLight = new THREE.AmbientLight(0xffffff, 0.8);
   scene.add(ambientLight);
 
-  // Hemisphere light for natural sky/ground contrast
-  const hemiLight = new THREE.HemisphereLight(0x22d3ee, 0x0f172a, 1.5);
-  hemiLight.position.set(0, 20, 0);
-  scene.add(hemiLight);
-
-  // Primary directional spotlight
   const directionalLight = new THREE.DirectionalLight(0x22d3ee, 0);
   directionalLight.intensity = 0;
-  directionalLight.position.set(-2, 8, 6);
+  directionalLight.position.set(-0.47, -0.32, -1);
   directionalLight.castShadow = true;
+  directionalLight.shadow.mapSize.width = 1024;
+  directionalLight.shadow.mapSize.height = 1024;
+  directionalLight.shadow.camera.near = 0.5;
+  directionalLight.shadow.camera.far = 50;
   scene.add(directionalLight);
 
-  // Neon purple rim light from the back
-  const rimLight = new THREE.DirectionalLight(0x818cf8, 0);
-  rimLight.position.set(4, 6, -6);
-  scene.add(rimLight);
-
-  // Screen interactive point light
-  const pointLight = new THREE.PointLight(0x22d3ee, 0, 50, 2);
-  pointLight.position.set(0, 3, -1);
+  const pointLight = new THREE.PointLight(0x22d3ee, 0, 100, 3);
+  pointLight.position.set(3, 12, 4);
+  pointLight.castShadow = true;
   scene.add(pointLight);
 
+  // Load HDR environment map
+  try {
+    new RGBELoader()
+      .setPath("/models/")
+      .load(
+        "char_enviorment.hdr",
+        function (texture) {
+          texture.mapping = THREE.EquirectangularReflectionMapping;
+          scene.environment = texture;
+          scene.environmentIntensity = 0;
+          scene.environmentRotation.set(5.76, 85.85, 1);
+        },
+        undefined,
+        (err) => {
+          console.warn("HDR load warning:", err);
+        }
+      );
+  } catch (err) {
+    console.warn("RGBELoader error:", err);
+  }
+
   function setPointLight(screenLight: any) {
-    if (screenLight && screenLight.material && screenLight.material.opacity > 0.5) {
-      pointLight.intensity = (screenLight.material.emissiveIntensity || 1) * 15;
+    if (screenLight && screenLight.material && screenLight.material.opacity > 0.9) {
+      pointLight.intensity = (screenLight.material.emissiveIntensity || 1) * 20;
     } else {
-      pointLight.intensity = 2;
+      pointLight.intensity = 0;
     }
   }
 
-  const duration = 1.8;
+  const duration = 2;
   const ease = "power2.inOut";
   function turnOnLights() {
-    gsap.to(directionalLight, {
-      intensity: 2.2,
+    gsap.to(scene, {
+      environmentIntensity: 0.64,
       duration: duration,
       ease: ease,
     });
-    gsap.to(rimLight, {
-      intensity: 1.8,
+    gsap.to(directionalLight, {
+      intensity: 1.2,
       duration: duration,
       ease: ease,
     });
