@@ -259,7 +259,13 @@ h2.landing-info-h2 {
     height: 55vh;
     bottom: 90px;
   }
+  .character-rim {
+    width: 220px !important;
+    height: 220px !important;
+    filter: blur(30px) !important;
+  }
 }
+
 
 @media screen and (min-width: 500px) {
   .landing-circle2 {

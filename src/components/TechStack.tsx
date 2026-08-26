@@ -271,6 +271,17 @@ function Pointer({ isActive }: { isActive: boolean }) {
 const TechStack = () => {
   const [isActive, setIsActive] = useState(false);
   const [activeTab, setActiveTab] = useState<"all" | "frontend" | "backend" | "ai">("all");
+  const [isDesktop, setIsDesktop] = useState(
+    typeof window !== "undefined" ? window.innerWidth > 768 : true
+  );
+
+  useEffect(() => {
+    const handleCheckDesktop = () => {
+      setIsDesktop(window.innerWidth > 768);
+    };
+    window.addEventListener("resize", handleCheckDesktop);
+    return () => window.removeEventListener("resize", handleCheckDesktop);
+  }, []);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -280,6 +291,7 @@ const TechStack = () => {
         setIsActive(threshold < window.innerHeight * 1.2);
       }
     };
+
 
     window.addEventListener("scroll", handleScroll);
     handleScroll();
@@ -336,35 +348,38 @@ const TechStack = () => {
           </p>
         </div>
 
-        {/* 3D Interactive Physics Canvas (Desktop / Tablet) */}
-        <div className="tech-3d-wrapper">
-          <div className="tech-canvas-badge">
-            <span className="pulse-dot"></span> Interactive 3D Canvas — Move cursor to collide &amp; bounce
+        {/* 3D Interactive Physics Canvas (Desktop / Tablet only) */}
+        {isDesktop && (
+          <div className="tech-3d-wrapper">
+            <div className="tech-canvas-badge">
+              <span className="pulse-dot"></span> Interactive 3D Canvas — Move cursor to collide &amp; bounce
+            </div>
+            <Canvas
+              shadows
+              gl={{ alpha: true, antialias: true }}
+              camera={{ position: [0, 0, 18], fov: 36, near: 1, far: 100 }}
+              className="tech-canvas"
+            >
+              <ambientLight intensity={2.2} />
+              <directionalLight position={[0, 8, 12]} intensity={2.5} />
+              <directionalLight position={[-8, -4, -6]} intensity={1.5} color="#22d3ee" />
+              <pointLight position={[0, 0, 5]} intensity={1.8} color="#ffffff" />
+              <Physics gravity={[0, 0, 0]}>
+                <Pointer isActive={isActive} />
+                {spheresData.map((data, i) => (
+                  <FloatingSphere
+                    key={i}
+                    scale={data.scale}
+                    material={materials[i % materials.length]}
+                    isActive={isActive}
+                    initialPos={data.initialPos}
+                  />
+                ))}
+              </Physics>
+            </Canvas>
           </div>
-          <Canvas
-            shadows
-            gl={{ alpha: true, antialias: true }}
-            camera={{ position: [0, 0, 18], fov: 36, near: 1, far: 100 }}
-            className="tech-canvas"
-          >
-            <ambientLight intensity={2.2} />
-            <directionalLight position={[0, 8, 12]} intensity={2.5} />
-            <directionalLight position={[-8, -4, -6]} intensity={1.5} color="#22d3ee" />
-            <pointLight position={[0, 0, 5]} intensity={1.8} color="#ffffff" />
-            <Physics gravity={[0, 0, 0]}>
-              <Pointer isActive={isActive} />
-              {spheresData.map((data, i) => (
-                <FloatingSphere
-                  key={i}
-                  scale={data.scale}
-                  material={materials[i % materials.length]}
-                  isActive={isActive}
-                  initialPos={data.initialPos}
-                />
-              ))}
-            </Physics>
-          </Canvas>
-        </div>
+        )}
+
 
         {/* Interactive Filter Pills */}
         <div className="tech-filter-tabs">

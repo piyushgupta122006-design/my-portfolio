@@ -36,6 +36,11 @@ const Scene = () => {
       renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
       renderer.toneMapping = THREE.ACESFilmicToneMapping;
       renderer.toneMappingExposure = 1;
+
+      renderer.domElement.addEventListener("webglcontextlost", (event) => {
+        event.preventDefault();
+      }, false);
+
       canvasDiv.current.appendChild(renderer.domElement);
 
       const camera = new THREE.PerspectiveCamera(14.5, aspect, 0.1, 1000);
@@ -54,27 +59,38 @@ const Scene = () => {
       const progress = setProgress((value) => setLoading(value));
       const { loadCharacter } = setCharacter(renderer, scene, camera);
 
+      let loadedChar: THREE.Object3D | null = null;
+      let lastWidth = window.innerWidth;
+      const onWindowResize = () => {
+        if (Math.abs(window.innerWidth - lastWidth) > 40) {
+          lastWidth = window.innerWidth;
+          if (loadedChar) {
+            handleResize(renderer, camera, canvasDiv, loadedChar);
+          }
+        }
+      };
+      window.addEventListener("resize", onWindowResize);
+
       loadCharacter().then((gltf) => {
         if (gltf) {
           const animations = setAnimations(gltf);
           if (hoverDivRef.current) animations.hover(gltf, hoverDivRef.current);
           mixer = animations.mixer;
           const charScene = gltf.scene;
-          setChar(charScene);
+          loadedChar = charScene;
           scene.add(charScene);
           headBone = charScene.getObjectByName("spine006") || null;
           screenLight = charScene.getObjectByName("screenlight") || null;
+
           progress.loaded().then(() => {
             setTimeout(() => {
               light.turnOnLights();
               animations.startIntro();
             }, 2500);
           });
-          window.addEventListener("resize", () =>
-            handleResize(renderer, camera, canvasDiv, charScene)
-          );
         }
       });
+
 
       let mouse = { x: 0, y: 0 };
       let interpolation = { x: 0.1, y: 0.2 };
