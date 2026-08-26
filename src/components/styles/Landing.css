@@ -83,16 +83,12 @@
 }
 
 .character-model {
-  height: 80%;
   height: 80vh;
   position: absolute;
-  max-width: 1920px;
-  max-height: 1080px;
-  transform: translateX(-50%);
   width: 100%;
-  left: 50%;
+  left: 0;
+  top: 0;
   z-index: 0;
-  bottom: 50px;
   pointer-events: inherit;
 }
 
@@ -102,11 +98,11 @@
   height: 250px;
   background-image: linear-gradient(to bottom, transparent, var(--backgroundColor) 70%);
   bottom: -50px;
-  left: 50%;
-  transform: translateX(-50%);
+  left: 0;
   z-index: 9;
   position: absolute;
 }
+
 
 .character-model::before {
   content: "";
@@ -289,15 +285,21 @@ h2.landing-info-h2 {
 
 @media screen and (min-width: 1025px) {
   .character-model {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
     height: 100vh;
     bottom: 0;
+    right: 0;
     z-index: 11;
-    position: fixed;
+    pointer-events: none;
   }
   .character-model::after,
   .character-model::before {
     display: none;
   }
+
   .landing-intro {
     top: 50%;
     left: auto;
