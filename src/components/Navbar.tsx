@@ -50,8 +50,24 @@ const Navbar = () => {
               <HoverLinks text="CONTACT" />
             </a>
           </li>
+          <li className="navbar-resume-item">
+            <a
+              href="/resume.pdf"
+              target="_blank"
+              rel="noreferrer"
+              className="navbar-resume-btn"
+              data-cursor="disable"
+              title="View & Download Resume"
+            >
+              <span>RESUME</span>
+              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M7 17l9.2-9.2M17 17V8H8" />
+              </svg>
+            </a>
+          </li>
         </ul>
       </header>
+
 
       <div className="landing-circle1"></div>
       <div className="landing-circle2"></div>

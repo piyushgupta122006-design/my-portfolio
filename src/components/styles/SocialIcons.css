@@ -90,6 +90,12 @@
   }
 }
 
+@media only screen and (max-width: 768px) {
+  .resume-button {
+    display: none !important;
+  }
+}
+
 @media only screen and (min-width: 768px) {
   .resume-button {
     transform: none;
@@ -101,3 +107,4 @@
     margin-top: -1.5px;
   }
 }
+

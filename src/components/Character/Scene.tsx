@@ -123,9 +123,29 @@ const Scene = () => {
         landingDiv.addEventListener("touchend", onTouchEnd);
       }
 
+      let isVisible = true;
+      let observer: IntersectionObserver | null = null;
+      if (canvasDiv.current && typeof IntersectionObserver !== "undefined") {
+        observer = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              isVisible = entry.isIntersecting;
+            });
+          },
+          { threshold: 0, rootMargin: "150px" }
+        );
+        observer.observe(canvasDiv.current);
+      }
+
+      renderer.domElement.addEventListener("webglcontextrestored", () => {
+        renderer.render(scene, camera);
+      }, false);
+
       let animationFrameId: number;
       const animate = () => {
         animationFrameId = requestAnimationFrame(animate);
+        if (!isVisible) return;
+
         if (headBone) {
           handleHeadRotation(
             headBone,
@@ -146,6 +166,9 @@ const Scene = () => {
       animate();
 
       return () => {
+        if (observer) {
+          observer.disconnect();
+        }
         clearTimeout(debounce);
         cancelAnimationFrame(animationFrameId);
         scene.clear();
@@ -159,6 +182,7 @@ const Scene = () => {
           landingDiv.removeEventListener("touchend", onTouchEnd);
         }
       };
+
     }
   }, []);
 

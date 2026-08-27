@@ -9,7 +9,12 @@ const Cursor = () => {
     const cursor = cursorRef.current;
     if (!cursor) return;
 
+    if (window.innerWidth <= 1024 || "ontouchstart" in window || navigator.maxTouchPoints > 0) {
+      return;
+    }
+
     const mousePos = { x: 0, y: 0 };
+
     const cursorPos = { x: 0, y: 0 };
 
     const onMouseMove = (e: MouseEvent) => {
