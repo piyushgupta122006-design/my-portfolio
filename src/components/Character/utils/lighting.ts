@@ -4,12 +4,12 @@ import { gsap } from "gsap";
 
 const setLighting = (scene: THREE.Scene) => {
   // Ambient base light
-  const ambientLight = new THREE.AmbientLight(0xffffff, 0.8);
+  const ambientLight = new THREE.AmbientLight(0xffffff, 1.1);
   scene.add(ambientLight);
 
-  const directionalLight = new THREE.DirectionalLight(0x22d3ee, 0);
+  const directionalLight = new THREE.DirectionalLight(0xffffff, 0);
   directionalLight.intensity = 0;
-  directionalLight.position.set(-0.47, -0.32, -1);
+  directionalLight.position.set(-0.47, 1.2, 2);
   directionalLight.castShadow = true;
   directionalLight.shadow.mapSize.width = 1024;
   directionalLight.shadow.mapSize.height = 1024;
@@ -17,10 +17,11 @@ const setLighting = (scene: THREE.Scene) => {
   directionalLight.shadow.camera.far = 50;
   scene.add(directionalLight);
 
-  const pointLight = new THREE.PointLight(0x22d3ee, 0, 100, 3);
+  const pointLight = new THREE.PointLight(0xff90e8, 0, 100, 3);
   pointLight.position.set(3, 12, 4);
   pointLight.castShadow = true;
   scene.add(pointLight);
+
 
   // Load HDR environment map
   try {

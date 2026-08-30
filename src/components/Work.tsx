@@ -71,8 +71,11 @@ const Work = () => {
   return (
     <div className="work-section" id="work">
       <div className="work-container section-container">
+        <div className="work-badge-top">
+          <span>🚀 PRODUCTION APPS &amp; TOOLS</span>
+        </div>
         <h2>
-          Featured <span>Projects</span>
+          FEATURED <span>PROJECTS ✦</span>
         </h2>
 
         <div className="carousel-wrapper">
@@ -104,36 +107,55 @@ const Work = () => {
             >
               {projects.map((project, index) => (
                 <div className="carousel-slide" key={index}>
-                  <div className="carousel-content">
-                    <div className="carousel-info">
-                      <div className="carousel-number">
-                        <h3>0{index + 1}</h3>
+                  <div className="carousel-neo-card">
+                    <div className="neo-card-topbar">
+                      <div className="neo-window-dots">
+                        <span className="neo-dot red"></span>
+                        <span className="neo-dot yellow"></span>
+                        <span className="neo-dot green"></span>
                       </div>
-                      <div className="carousel-details">
-                        <h4>{project.title}</h4>
-                        <p className="carousel-category">
-                          {project.category}
-                        </p>
-                        <p className="carousel-role-tag">
-                          {project.role}
-                        </p>
-                        <div className="carousel-tools">
-                          <span className="tools-label">Tech Stack</span>
-                          <p>{project.tools}</p>
-                        </div>
-                        {project.isPrivate && (
-                          <div className="private-repo-badge">
-                            <span>🔒 Private Academic Codebase</span>
-                          </div>
-                        )}
-                      </div>
+                      <span className="neo-card-filename">
+                        PROJECT_0{index + 1}.EXE ✦
+                      </span>
                     </div>
-                    <div className="carousel-image-wrapper">
-                      <WorkImage
-                        image={project.image}
-                        alt={project.title}
-                        link={project.link}
-                      />
+
+                    <div className="carousel-content">
+                      <div className="carousel-info">
+                        <div className="carousel-number-box">
+                          <span>0{index + 1}</span>
+                        </div>
+                        <div className="carousel-details">
+                          <h4>{project.title}</h4>
+                          <p className="carousel-category">
+                            {project.category}
+                          </p>
+                          <div className="carousel-role-tag">
+                            <span>👤 {project.role}</span>
+                          </div>
+                          <div className="carousel-tools">
+                            <span className="tools-label">TECH STACK</span>
+                            <div className="carousel-tools-pills">
+                              {project.tools.split(",").map((tool, tIdx) => (
+                                <span className="neo-tool-pill" key={tIdx}>
+                                  {tool.trim()}
+                                </span>
+                              ))}
+                            </div>
+                          </div>
+                          {project.isPrivate && (
+                            <div className="private-repo-badge">
+                              <span>🔒 Academic Private Repo</span>
+                            </div>
+                          )}
+                        </div>
+                      </div>
+                      <div className="carousel-image-wrapper">
+                        <WorkImage
+                          image={project.image}
+                          alt={project.title}
+                          link={project.link}
+                        />
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -162,3 +184,4 @@ const Work = () => {
 };
 
 export default Work;
+

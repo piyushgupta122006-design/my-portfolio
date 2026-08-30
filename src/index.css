@@ -1,24 +1,43 @@
-@import url("https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@500;600;700;800;900&family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@500;600;700&display=swap");
 
 :root {
-  font-family: "Outfit", sans-serif;
+  font-family: "Plus Jakarta Sans", "Outfit", sans-serif;
   font-optical-sizing: auto;
   font-style: normal;
   line-height: 1.5;
   scroll-behavior: smooth;
-  color-scheme: dark;
-  color: #eae5ec;
-  background-color: var(--backgroundColor);
+  color-scheme: light;
+  color: #121212;
 
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  user-select: none;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  --accentColor: #22d3ee;
-  --backgroundColor: #040711;
+  /* Neo-Brutalist Signature Color Palette */
+  --bgYellow: #FFE875;
+  --bgCream: #FFF8C5;
+  --neoPink: #FF90E8;
+  --neoPinkLight: #FFC9F6;
+  --neoBlue: #88AAEE;
+  --neoBlueLight: #CCE0FF;
+  --neoGreen: #A6E3A1;
+  --neoGreenLight: #DDF7DA;
+  --neoOrange: #FDBA74;
+  --neoPurple: #C4B5FD;
+  --neoCyan: #22D3EE;
+  --neoBlack: #000000;
+  --neoOffBlack: #18181B;
+  --neoWhite: #FFFFFF;
+
+  /* Neo-Brutalist Structural Tokens */
+  --neoBorder: 3px solid #000000;
+  --neoBorderThin: 2px solid #000000;
+  --neoBorderThick: 4px solid #000000;
+  --neoShadowSm: 3px 3px 0px #000000;
+  --neoShadow: 5px 5px 0px #000000;
+  --neoShadowLg: 8px 8px 0px #000000;
+  --neoRadius: 16px;
+  --neoRadiusSm: 10px;
+  --neoRadiusPill: 9999px;
+
+  --accentColor: #000000;
+  --backgroundColor: #FFE875;
   --vh: 100vh;
   --vh: 100svh;
 }
@@ -29,16 +48,21 @@ h3,
 h4,
 h5,
 h6 {
-  font-family: "Outfit", sans-serif;
+  font-family: "Plus Jakarta Sans", "Outfit", sans-serif;
+  color: var(--neoBlack);
+  font-weight: 800;
 }
 
 body {
   margin: 0;
   height: auto;
-  background-color: #040711;
+  background-color: var(--bgYellow);
+  background-image: radial-gradient(rgba(0, 0, 0, 0.15) 1.5px, transparent 1.5px);
+  background-size: 24px 24px;
+  color: var(--neoBlack);
   flex-grow: 1;
   --cWidth: calc(100% - 30px);
-  --cMaxWidth: 1920px;
+  --cMaxWidth: 1300px;
   max-width: 100vw;
   overflow-x: hidden;
 }
@@ -48,10 +72,6 @@ a {
   text-decoration: inherit;
 }
 
-a:hover {
-  color: var(--accentColor);
-}
-
 main {
   opacity: 1;
   transition: 0.3s;
@@ -59,7 +79,7 @@ main {
 
 .main-active {
   opacity: 0;
-  animation: fadeIn 1s 1;
+  animation: fadeIn 0.8s 1;
   animation-fill-mode: forwards;
 }
 
@@ -98,13 +118,45 @@ main {
   flex-wrap: nowrap;
 }
 
-/* ── Modern TechStack Section & 3D Physics ── */
+/* ── Neo-Brutalist Reusable Utility Components ── */
+.neo-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--neoWhite);
+  border: var(--neoBorderThin);
+  box-shadow: var(--neoShadowSm);
+  border-radius: var(--neoRadiusPill);
+  padding: 5px 14px;
+  font-size: 13px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.neo-window-dots {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+}
+
+.neo-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  border: 1.5px solid #000;
+}
+.neo-dot.red { background-color: #ff5f56; }
+.neo-dot.yellow { background-color: #ffbd2e; }
+.neo-dot.green { background-color: #27c93f; }
+
+/* ── Neo-Brutalist TechStack Section ── */
 .techstack-section {
   width: 100%;
   position: relative;
-  padding: 80px 0 100px;
-  background-color: var(--backgroundColor);
-  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 90px 0 110px;
+  background-color: var(--bgYellow);
+  border-top: var(--neoBorderThick);
 }
 
 .techstack-container {
@@ -115,50 +167,55 @@ main {
 
 .techstack-header {
   text-align: center;
-  margin-bottom: 30px;
+  margin-bottom: 35px;
 }
 
 .techstack-tag {
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
   font-size: 13px;
-  font-weight: 700;
-  letter-spacing: 2.5px;
-  color: var(--accentColor);
+  font-weight: 800;
+  letter-spacing: 1px;
+  color: var(--neoBlack);
   text-transform: uppercase;
-  margin-bottom: 12px;
-  background: rgba(34, 211, 238, 0.1);
-  padding: 6px 16px;
-  border-radius: 30px;
-  border: 1px solid rgba(34, 211, 238, 0.25);
+  margin-bottom: 14px;
+  background: var(--neoPink);
+  padding: 6px 18px;
+  border-radius: var(--neoRadiusPill);
+  border: var(--neoBorder);
+  box-shadow: var(--neoShadowSm);
 }
 
 .techstack-title {
   font-size: 54px;
-  font-weight: 800;
-  color: #ffffff;
+  font-weight: 900;
+  color: var(--neoBlack);
   margin: 0 0 12px;
-  letter-spacing: -1px;
+  letter-spacing: -1.5px;
+  text-transform: uppercase;
 }
 
 .techstack-subtitle {
   font-size: 17px;
-  color: #94a3b8;
+  font-weight: 600;
+  color: #333333;
   max-width: 600px;
   margin: 0 auto;
   line-height: 26px;
 }
 
-/* 3D Canvas Playground */
+/* 3D Canvas Playground Container (Desktop / Tablet) */
 .tech-3d-wrapper {
   position: relative;
   width: 100%;
-  height: 480px;
-  border-radius: 24px;
-  background: radial-gradient(circle at center, rgba(14, 165, 233, 0.06) 0%, rgba(4, 7, 20, 0.6) 70%);
-  border: 1px solid rgba(34, 211, 238, 0.2);
+  height: 460px;
+  border-radius: var(--neoRadius);
+  background: #FFFFFF;
+  border: var(--neoBorderThick);
+  box-shadow: var(--neoShadowLg);
   overflow: hidden;
-  margin-bottom: 40px;
-  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5), inset 0 0 30px rgba(34, 211, 238, 0.05);
+  margin-bottom: 45px;
 }
 
 .tech-canvas-badge {
@@ -171,28 +228,28 @@ main {
   align-items: center;
   gap: 10px;
   font-size: 13px;
-  font-weight: 600;
-  color: #e2e8f0;
-  background: rgba(4, 7, 20, 0.85);
-  backdrop-filter: blur(12px);
-  padding: 8px 18px;
-  border-radius: 30px;
-  border: 1px solid rgba(34, 211, 238, 0.3);
+  font-weight: 800;
+  color: var(--neoBlack);
+  background: var(--neoGreen);
+  padding: 7px 18px;
+  border-radius: var(--neoRadiusPill);
+  border: var(--neoBorderThin);
+  box-shadow: var(--neoShadowSm);
   pointer-events: none;
 }
 
 .pulse-dot {
-  width: 8px;
-  height: 8px;
+  width: 9px;
+  height: 9px;
   border-radius: 50%;
-  background-color: #22d3ee;
-  box-shadow: 0 0 10px #22d3ee;
+  background-color: #000000;
+  border: 1px solid #fff;
   animation: pulseDot 1.5s infinite;
 }
 
 @keyframes pulseDot {
-  0%, 100% { opacity: 1; transform: scale(1); }
-  50% { opacity: 0.4; transform: scale(1.3); }
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.3); }
 }
 
 .tech-canvas {
@@ -205,57 +262,60 @@ main {
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
-  gap: 10px;
+  gap: 12px;
   margin-bottom: 35px;
 }
 
 .filter-btn {
-  background: rgba(12, 19, 36, 0.6);
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  color: #94a3b8;
+  background: var(--neoWhite);
+  border: var(--neoBorder);
+  box-shadow: var(--neoShadowSm);
+  color: var(--neoBlack);
   font-size: 14px;
-  font-weight: 600;
-  padding: 10px 20px;
-  border-radius: 25px;
+  font-weight: 800;
+  padding: 10px 22px;
+  border-radius: var(--neoRadiusPill);
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: all 0.2s cubic-bezier(0.2, 0, 0, 1);
 }
 
 .filter-btn:hover {
-  color: #fff;
-  border-color: rgba(34, 211, 238, 0.4);
-  background: rgba(34, 211, 238, 0.08);
+  transform: translate(-2px, -2px);
+  box-shadow: var(--neoShadow);
+  background: var(--neoBlueLight);
+}
+
+.filter-btn:active {
+  transform: translate(2px, 2px);
+  box-shadow: 1px 1px 0px #000;
 }
 
 .filter-btn.active {
-  background: rgba(34, 211, 238, 0.15);
-  border-color: var(--accentColor);
-  color: var(--accentColor);
-  box-shadow: 0 0 20px rgba(34, 211, 238, 0.25);
+  background: var(--neoPink);
+  box-shadow: var(--neoShadow);
 }
 
 /* Tech Grid */
 .tech-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-  gap: 18px;
+  gap: 20px;
 }
 
 .tech-card {
-  background: rgba(10, 16, 32, 0.7);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 20px;
+  background: var(--neoWhite);
+  border: var(--neoBorder);
+  border-radius: var(--neoRadius);
+  box-shadow: var(--neoShadow);
   padding: 22px;
-  backdrop-filter: blur(12px);
-  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.3s ease, box-shadow 0.3s ease;
+  transition: transform 0.2s cubic-bezier(0.2, 0, 0, 1), box-shadow 0.2s ease;
   display: flex;
   flex-direction: column;
 }
 
 .tech-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4);
-  border-color: rgba(34, 211, 238, 0.6) !important;
+  transform: translate(-3px, -3px);
+  box-shadow: var(--neoShadowLg);
 }
 
 .tech-card-header {
@@ -266,62 +326,67 @@ main {
 }
 
 .tech-icon-box {
-  width: 50px;
-  height: 50px;
-  border-radius: 14px;
+  width: 52px;
+  height: 52px;
+  border-radius: var(--neoRadiusSm);
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 26px;
-  border: 1px solid;
-  transition: transform 0.3s ease;
+  font-size: 28px;
+  border: var(--neoBorderThin);
+  box-shadow: 2px 2px 0px #000;
+  transition: transform 0.2s ease;
 }
 
 .tech-card:hover .tech-icon-box {
-  transform: scale(1.1) rotate(5deg);
+  transform: rotate(6deg) scale(1.08);
 }
 
 .tech-level-pill {
   font-size: 11px;
-  font-weight: 700;
+  font-weight: 800;
   text-transform: uppercase;
   letter-spacing: 0.5px;
   padding: 4px 10px;
-  border-radius: 20px;
-  border: 1px solid;
+  border-radius: var(--neoRadiusPill);
+  border: var(--neoBorderThin);
+  box-shadow: 1px 1px 0px #000;
+  background: var(--bgCream);
+  color: var(--neoBlack);
 }
 
 .tech-name {
   font-size: 20px;
-  font-weight: 700;
-  color: #ffffff;
+  font-weight: 900;
+  color: var(--neoBlack);
   margin: 0 0 8px;
 }
 
 .tech-desc {
-  font-size: 13px;
-  color: #94a3b8;
+  font-size: 13.5px;
+  color: #333333;
   line-height: 20px;
+  font-weight: 500;
   margin: 0;
   flex-grow: 1;
 }
 
 @media screen and (min-width: 768px) {
   body {
-    --cWidth: 92%;
+    --cWidth: 90%;
   }
 }
 
 @media screen and (max-width: 900px) {
   .techstack-title {
-    font-size: 38px;
+    font-size: 40px;
   }
   .tech-3d-wrapper {
     height: 380px;
   }
   .tech-grid {
     grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-    gap: 14px;
+    gap: 16px;
   }
 }
 
@@ -333,10 +398,10 @@ main {
 
 @media screen and (max-width: 600px) {
   .techstack-section {
-    padding: 50px 0 70px;
+    padding: 60px 0 80px;
   }
   .techstack-title {
-    font-size: 32px;
+    font-size: 34px;
   }
   .techstack-subtitle {
     font-size: 14px;
@@ -345,14 +410,8 @@ main {
     display: none !important;
   }
 
-  .tech-canvas-badge {
-    font-size: 11px;
-    padding: 6px 14px;
-    width: 90%;
-    justify-content: center;
-  }
   .tech-filter-tabs {
-    gap: 6px;
+    gap: 8px;
   }
   .filter-btn {
     font-size: 12px;
@@ -360,18 +419,19 @@ main {
   }
   .tech-grid {
     grid-template-columns: 1fr;
-    gap: 12px;
+    gap: 14px;
   }
   .tech-card {
-    padding: 16px 18px;
+    padding: 18px;
   }
   .tech-icon-box {
-    width: 44px;
-    height: 44px;
-    font-size: 22px;
+    width: 46px;
+    height: 46px;
+    font-size: 24px;
   }
   .tech-name {
     font-size: 18px;
   }
 }
+
 

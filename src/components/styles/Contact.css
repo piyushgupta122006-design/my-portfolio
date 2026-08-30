@@ -1,33 +1,79 @@
+/* ── Neo-Brutalist Contact Section ── */
 .contact-section {
   margin: auto;
-  padding-bottom: 100px;
-  margin-top: 100px;
+  padding: 100px 0 120px;
   position: relative;
   z-index: 2;
-  background-color: var(--backgroundColor);
+  background-color: var(--bgYellow);
+  border-top: var(--neoBorderThick);
 }
 
-.contact-section h3 {
-  font-size: 60px;
+.contact-badge-top {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 12px;
+}
+
+.contact-badge-top span {
+  background: var(--neoWhite);
+  border: var(--neoBorderThin);
+  box-shadow: var(--neoShadowSm);
+  border-radius: var(--neoRadiusPill);
+  padding: 6px 18px;
+  font-size: 13px;
   font-weight: 800;
+  color: var(--neoBlack);
+  letter-spacing: 1px;
   text-transform: uppercase;
-  margin: 0 0 30px 0;
-  color: #fff;
+}
+
+.contact-main-heading {
+  font-size: 48px;
+  line-height: 52px;
+  font-weight: 900;
+  text-align: center;
+  color: var(--neoBlack);
+  margin-top: 0;
+  margin-bottom: 50px;
+  letter-spacing: -1.5px;
+  text-transform: uppercase;
+}
+
+.contact-highlight {
+  display: inline-block;
+  background: var(--neoPink);
+  color: var(--neoBlack);
+  border: var(--neoBorderThin);
+  box-shadow: 3px 3px 0px #000;
+  padding: 0 12px;
+  border-radius: var(--neoRadiusSm);
+}
+
+.contact-container {
+  width: var(--cWidth);
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.contact-neo-window {
+  background: var(--neoWhite);
+  border: var(--neoBorderThick);
+  box-shadow: var(--neoShadowLg);
+  border-radius: var(--neoRadius);
+  overflow: hidden;
+  transition: transform 0.3s cubic-bezier(0.2, 0, 0, 1), box-shadow 0.3s ease;
+}
+
+.contact-neo-window:hover {
+  transform: translate(-3px, -3px);
+  box-shadow: 11px 11px 0px #000;
 }
 
 .contact-flex {
-  display: flex;
-  justify-content: space-between;
-  gap: 40px;
-}
-
-.contact-flex h4 {
-  font-weight: 600;
-  margin: 0;
-  opacity: 0.6;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  font-size: 14px;
+  display: grid;
+  grid-template-columns: 1.2fr 1fr 1.2fr;
+  gap: 36px;
+  padding: 38px 40px;
 }
 
 .contact-box {
@@ -35,85 +81,129 @@
   flex-direction: column;
 }
 
+.contact-box h4 {
+  font-family: "JetBrains Mono", monospace;
+  font-weight: 800;
+  margin: 0 0 10px 0;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-size: 13px;
+  color: var(--neoBlack);
+  background: var(--bgCream);
+  border: 1.5px solid #000;
+  box-shadow: 1.5px 1.5px 0px #000;
+  padding: 4px 10px;
+  border-radius: var(--neoRadiusPill);
+  display: inline-block;
+  align-self: flex-start;
+}
+
 .contact-flex p {
-  margin-top: 10px;
-  margin-bottom: 24px;
-  font-size: 16px;
-  color: #cbd5e1;
-  line-height: 24px;
+  margin-top: 6px;
+  margin-bottom: 20px;
+  font-size: 14.5px;
+  font-weight: 600;
+  color: #262626;
+  line-height: 22px;
 }
 
-a.contact-social {
-  font-size: 24px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-  padding: 8px 0;
-  margin-bottom: 12px;
+.contact-inline-link {
+  color: var(--neoBlack);
+  font-weight: 800;
+  text-decoration: underline 2px var(--neoPink);
+  text-underline-offset: 4px;
+}
+
+.contact-inline-link:hover {
+  background: var(--neoPinkLight);
+}
+
+.contact-college {
+  font-size: 13px;
+  color: #4b5563;
+}
+
+.contact-social-pills {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 6px;
+}
+
+.contact-social-pill {
   display: flex;
   align-items: center;
-  gap: 8px;
-  color: #fff;
-  transition: color 0.3s ease, border-color 0.3s ease;
+  justify-content: space-between;
+  font-size: 15px;
+  font-weight: 900;
+  border: var(--neoBorderThin);
+  box-shadow: var(--neoShadowSm);
+  padding: 10px 18px;
+  border-radius: var(--neoRadiusPill);
+  color: var(--neoBlack) !important;
+  text-decoration: none;
+  transition: all 0.2s cubic-bezier(0.2, 0, 0, 1);
 }
 
-a.contact-social:hover {
-  color: var(--accentColor);
-  border-color: var(--accentColor);
+.contact-social-pill.pill-pink { background: var(--neoPink); }
+.contact-social-pill.pill-blue { background: var(--neoBlueLight); }
+.contact-social-pill.pill-green { background: var(--neoGreenLight); }
+
+.contact-social-pill:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: var(--neoShadow);
 }
 
-.contact-box h2 {
-  font-weight: 400;
-  font-size: 24px;
-  line-height: 32px;
+.contact-social-pill:active {
+  transform: translate(2px, 2px);
+  box-shadow: 1px 1px 0px #000;
+}
+
+.contact-box-right h2 {
+  font-size: 22px;
+  font-weight: 900;
+  line-height: 28px;
   margin: 0;
-  color: #fff;
+  color: var(--neoBlack);
+  letter-spacing: -0.5px;
 }
 
-.contact-box h2 > span {
-  color: var(--accentColor);
+.contact-box-right h2 > span {
+  display: inline-block;
+  background: var(--neoPink);
+  padding: 2px 8px;
+  border: 1.5px solid #000;
+  box-shadow: 2px 2px 0px #000;
+  border-radius: 6px;
+  margin-top: 4px;
+}
+
+.copyright-pill {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 12px;
   font-weight: 700;
-}
-
-.contact-box h5 {
-  font-size: 18px;
-  font-weight: 500;
-  line-height: 20px;
+  color: #4b5563;
+  margin-top: 24px;
   display: flex;
   align-items: center;
-  gap: 10px;
-  opacity: 0.5;
-  margin-top: 20px;
-}
-
-@media only screen and (max-width: 1600px) {
-  .contact-section h3 { font-size: 50px; }
-  .contact-box h2 { font-size: 20px; }
-  a.contact-social { font-size: 22px; }
-}
-
-@media only screen and (max-width: 1300px) {
-  .contact-section h3 { font-size: 40px; }
-  .contact-box h2 { font-size: 18px; }
-  a.contact-social { font-size: 20px; }
+  gap: 6px;
 }
 
 @media only screen and (max-width: 900px) {
+  .contact-main-heading { font-size: 36px; line-height: 40px; margin-bottom: 30px; }
   .contact-flex {
-    flex-direction: column;
-    gap: 40px;
-  }
-  .contact-section {
-    margin-top: 50px;
-    padding-bottom: 50px;
-  }
-  .contact-container {
-    width: calc(100% - 25px);
+    grid-template-columns: 1fr;
+    padding: 24px 20px;
+    gap: 28px;
   }
 }
 
 @media only screen and (max-width: 600px) {
-  .contact-section h3 { font-size: 34px; margin-bottom: 20px; }
-  .contact-box h2 { font-size: 18px; line-height: 26px; }
-  a.contact-social { font-size: 18px; }
-  .contact-flex { gap: 28px; }
+  .contact-section { padding: 60px 0 80px; }
+  .contact-main-heading { font-size: 28px; line-height: 32px; margin-bottom: 24px; }
+  .contact-flex { padding: 20px 16px; gap: 24px; }
+  .contact-box-right h2 { font-size: 18px; line-height: 24px; }
+  .copyright-pill { font-size: 10.5px; }
 }
+
 

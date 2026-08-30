@@ -10,9 +10,9 @@ export function initialFX() {
   if (mainEl) mainEl.classList.add("main-active");
 
   gsap.to("body", {
-    backgroundColor: "#050810",
+    backgroundColor: "#FFE875",
     duration: 0.5,
-    delay: 1,
+    delay: 0.5,
   });
 
   const introH2 = new SimpleSplitText(".landing-intro h2", { type: "chars" });

@@ -341,8 +341,8 @@ const TechStack = () => {
         
         {/* Section Header */}
         <div className="techstack-header">
-          <span className="techstack-tag">SKILLS &amp; ARSENAL</span>
-          <h2 className="techstack-title">Tech Stack</h2>
+          <span className="techstack-tag">⚡ SKILLS &amp; ARSENAL ✦</span>
+          <h2 className="techstack-title">TECH STACK</h2>
           <p className="techstack-subtitle">
             Interactive 3D physics playground + verified technical proficiencies
           </p>
@@ -380,7 +380,6 @@ const TechStack = () => {
           </div>
         )}
 
-
         {/* Interactive Filter Pills */}
         <div className="tech-filter-tabs">
           <button
@@ -412,32 +411,18 @@ const TechStack = () => {
         {/* Crystal Clear Tech Arsenal Grid */}
         <div className="tech-grid">
           {filteredItems.map((item, idx) => (
-            <div
-              key={idx}
-              className="tech-card"
-              style={{
-                borderColor: `${item.color}35`,
-              }}
-            >
+            <div key={idx} className="tech-card">
               <div className="tech-card-header">
                 <div
                   className="tech-icon-box"
                   style={{
-                    color: item.color,
-                    backgroundColor: `${item.color}15`,
-                    borderColor: `${item.color}40`,
+                    color: "#000000",
+                    backgroundColor: item.bg === "#241e05" ? "var(--bgYellow)" : item.color,
                   }}
                 >
                   {item.icon}
                 </div>
-                <span
-                  className="tech-level-pill"
-                  style={{
-                    color: item.color,
-                    borderColor: `${item.color}30`,
-                    backgroundColor: `${item.color}10`,
-                  }}
-                >
+                <span className="tech-level-pill">
                   {item.level}
                 </span>
               </div>
@@ -453,3 +438,4 @@ const TechStack = () => {
 };
 
 export default TechStack;
+
