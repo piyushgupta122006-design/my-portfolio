@@ -13,7 +13,7 @@
 }
 
 .what-box {
-  width: 50%;
+  width: 55%;
   display: flex;
   justify-content: center;
   position: relative;
@@ -21,7 +21,7 @@
 }
 
 .what-box:first-child {
-  width: 40%;
+  width: 35%;
   justify-content: flex-start;
 }
 
@@ -62,7 +62,7 @@
   flex-direction: column;
   height: auto;
   min-height: 640px;
-  margin-left: 180px;
+  margin-left: 210px;
   position: relative;
   display: none;
   gap: 24px;
