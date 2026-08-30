@@ -11,7 +11,7 @@
 
 .social-icons {
   position: absolute;
-  left: 10px;
+  left: 14px;
   bottom: 24px;
   display: none;
   flex-direction: column;
@@ -20,39 +20,31 @@
   pointer-events: auto;
 }
 
-.social-icons span {
-  width: 44px;
-  height: 44px;
-  position: relative;
-  display: flex;
-}
-
-.social-icons a {
-  --siLeft: 50%;
-  --siTop: 50%;
-  position: absolute;
-  left: var(--siLeft, 50%);
-  top: var(--siTop, 50%);
-  transform: translate(-50%, -50%);
+.social-icon-btn {
   display: flex;
   align-items: center;
   justify-content: center;
   width: 44px;
   height: 44px;
   font-size: 20px;
-  will-change: left, top;
-  transition: all 0.2s cubic-bezier(0.2, 0, 0, 1);
-  color: var(--neoBlack);
+  color: var(--neoBlack) !important;
   background: var(--neoWhite);
   border: var(--neoBorderThin);
   box-shadow: var(--neoShadowSm);
   border-radius: var(--neoRadiusSm);
+  text-decoration: none;
+  transition: all 0.2s cubic-bezier(0.2, 0, 0, 1);
 }
 
-.social-icons a:hover {
+.social-icon-btn:hover {
   background: var(--neoPink);
-  transform: translate(-50%, -50%) translate(-2px, -2px);
+  transform: translate(-2px, -2px);
   box-shadow: var(--neoShadow);
+}
+
+.social-icon-btn:active {
+  transform: translate(2px, 2px);
+  box-shadow: 1px 1px 0px #000;
 }
 
 .resume-button {
@@ -64,5 +56,6 @@
     display: flex;
   }
 }
+
 
 

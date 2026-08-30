@@ -60,25 +60,29 @@
 
 .what-box-in {
   flex-direction: column;
-  height: 520px;
+  height: auto;
+  min-height: 640px;
   margin-left: 180px;
   position: relative;
   display: none;
-  gap: 20px;
+  gap: 24px;
+  justify-content: center;
 }
 
 .what-content {
-  width: 480px;
-  height: 48%;
-  min-height: 48%;
-  transition: all 0.3s cubic-bezier(0.2, 0, 0, 1);
+  width: 500px;
+  max-width: 100%;
+  height: auto;
+  min-height: 290px;
+  transition: transform 0.3s cubic-bezier(0.2, 0, 0, 1), box-shadow 0.3s ease;
   position: relative;
-  padding: 30px;
+  padding: 24px 28px 26px;
   box-sizing: border-box;
   border: var(--neoBorderThick);
   border-radius: var(--neoRadius);
   box-shadow: var(--neoShadow);
   cursor: pointer;
+  overflow: visible;
 }
 
 .what-card-pink {
@@ -92,11 +96,6 @@
 .what-content:hover {
   transform: translate(-3px, -3px);
   box-shadow: var(--neoShadowLg);
-}
-
-.what-noTouch:hover,
-.what-content-active {
-  min-height: 55%;
 }
 
 .what-top-badge {

@@ -39,23 +39,13 @@ const Cursor = () => {
     const interactiveItems = document.querySelectorAll("[data-cursor]");
     interactiveItems.forEach((item) => {
       const element = item as HTMLElement;
-      element.addEventListener("mouseover", (e: MouseEvent) => {
-        const target = e.currentTarget as HTMLElement;
-        const rect = target.getBoundingClientRect();
-
-        if (element.dataset.cursor === "icons") {
-          cursor.classList.add("cursor-icons");
-          gsap.to(cursor, { x: rect.left, y: rect.top, duration: 0.1 });
-          cursor.style.setProperty("--cursorH", `${rect.height}px`);
-          hover = true;
-        }
+      element.addEventListener("mouseover", () => {
         if (element.dataset.cursor === "disable") {
           cursor.classList.add("cursor-disable");
         }
       });
       element.addEventListener("mouseout", () => {
-        cursor.classList.remove("cursor-disable", "cursor-icons");
-        hover = false;
+        cursor.classList.remove("cursor-disable");
       });
     });
 
