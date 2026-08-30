@@ -14,8 +14,8 @@ const Loading = ({ percent }: { percent: number }) => {
       setLoaded(true);
       setTimeout(() => {
         setIsLoaded(true);
-      }, 1000);
-    }, 600);
+      }, 700);
+    }, 400);
   }
 
   useEffect(() => {
@@ -27,69 +27,81 @@ const Loading = ({ percent }: { percent: number }) => {
             module.initialFX();
           }
           setIsLoading(false);
-        }, 900);
+        }, 600);
       }
     });
   }, [isLoaded, setIsLoading]);
 
-  function handleMouseMove(e: React.MouseEvent<HTMLElement>) {
-    const { currentTarget: target } = e;
-    const rect = target.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
-    target.style.setProperty("--mouse-x", `${x}px`);
-    target.style.setProperty("--mouse-y", `${y}px`);
-  }
-
   return (
-    <>
-      <div className="loading-header">
-        <a href="/#" className="loader-title" data-cursor="disable">
-          PG
-        </a>
-        <div className={`loaderGame ${clicked ? "loader-out" : ""}`}>
-          <div className="loaderGame-container">
-            <div className="loaderGame-in">
-              {[...Array(27)].map((_, index) => (
-                <div className="loaderGame-line" key={index}></div>
-              ))}
-            </div>
-            <div className="loaderGame-ball"></div>
+    <div className={`loading-screen ${clicked ? "loading-screen-out" : ""}`}>
+      {/* Top Navbar Simulation */}
+      <div className="neo-loader-header">
+        <div className="neo-loader-logo">PG</div>
+        <div className="neo-loader-status-pill">
+          <span className="pulse-dot"></span> SYSTEM BOOTING
+        </div>
+      </div>
+
+      {/* Center Neo-Brutalist Window Card */}
+      <div className={`neo-loader-card ${loaded ? "neo-loader-complete" : ""}`}>
+        <div className="neo-card-topbar">
+          <div className="neo-window-dots">
+            <span className="neo-dot red"></span>
+            <span className="neo-dot yellow"></span>
+            <span className="neo-dot green"></span>
+          </div>
+          <span className="neo-card-filename">SYSTEM_BOOT.EXE ✦</span>
+        </div>
+
+        <div className="neo-loader-body">
+          <div className="neo-loader-badge">
+            <span>✦ PIYUSH GUPTA</span>
+          </div>
+
+          <h2 className="neo-loader-title">
+            {loaded ? "READY TO EXPLORE!" : "LAUNCHING PORTFOLIO"}
+          </h2>
+
+          <p className="neo-loader-subtitle">
+            Full-Stack Engineering &amp; AI Systems
+          </p>
+
+          {/* Progress Bar */}
+          <div className="neo-progress-container">
+            <div
+              className="neo-progress-fill"
+              style={{ width: `${percent}%` }}
+            ></div>
+          </div>
+
+          {/* Bottom Info Row */}
+          <div className="neo-loader-footer">
+            <span className="neo-loader-pill">
+              {loaded ? "WELCOME ↗" : `LOADING [ ${percent}% ]`}
+            </span>
+            <span className="neo-loader-subtext">
+              {loaded ? "INITIALIZATION COMPLETE" : "BUILDING 3D CANVAS..."}
+            </span>
           </div>
         </div>
       </div>
-      <div className="loading-screen">
-        <div className="loading-marquee">
-          <Marquee speed={60}>
-            <span> Full Stack Developer</span> <span>AI Tool Builder</span>
-            <span> BSc CS Student</span> <span>Problem Solver</span>
-          </Marquee>
-        </div>
-        <div
-          className={`loading-wrap ${clicked ? "loading-clicked" : ""}`}
-          onMouseMove={(e) => handleMouseMove(e)}
-        >
-          <div className="loading-hover"></div>
-          <div className={`loading-button ${loaded ? "loading-complete" : ""}`}>
-            <div className="loading-container">
-              <div className="loading-content">
-                <div className="loading-content-in">
-                  Loading <span>{percent}%</span>
-                </div>
-              </div>
-              <div className="loading-box"></div>
-            </div>
-            <div className="loading-content2">
-              <span>Welcome</span>
-            </div>
-          </div>
-        </div>
+
+      {/* Bottom Marquee Strip */}
+      <div className="neo-loader-marquee">
+        <Marquee speed={50}>
+          <span>✦ FULL-STACK DEVELOPER</span>
+          <span>✦ AI TOOL BUILDER</span>
+          <span>✦ BSc CS STUDENT</span>
+          <span>✦ REACT &amp; THREE.JS</span>
+          <span>✦ PROBLEM SOLVER</span>
+        </Marquee>
       </div>
-    </>
+    </div>
   );
 };
 
 export default Loading;
+
 
 export const setProgress = (setLoading: (value: number) => void) => {
   let percent = 0;

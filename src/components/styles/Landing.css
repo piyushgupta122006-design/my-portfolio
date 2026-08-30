@@ -128,41 +128,47 @@
   z-index: 9;
 }
 
-.landing-rotator-wrapper {
-  position: relative;
-  height: 52px;
+.landing-ticker-box {
+  height: 46px;
   overflow: hidden;
+  position: relative;
   margin-top: 6px;
   width: 320px;
 }
 
-.landing-info-h2,
-.landing-info-h2-sub {
-  margin: 0;
+.landing-ticker-track {
+  display: flex;
+  flex-direction: column;
+  animation: neoTicker 8s cubic-bezier(0.65, 0, 0.35, 1) infinite;
+  will-change: transform;
+}
+
+.landing-ticker-item {
+  height: 46px;
+  line-height: 46px;
+  font-size: 36px;
   font-weight: 900;
-  font-size: 38px;
-  line-height: 48px;
-  position: absolute;
-  top: 0;
-  left: 0;
-  white-space: nowrap;
-  text-transform: uppercase;
-  letter-spacing: 1px;
   color: var(--neoBlack);
-  overflow: hidden;
-  height: 48px;
+  text-transform: uppercase;
+  letter-spacing: -0.5px;
+  white-space: nowrap;
+  margin: 0;
+  padding: 0;
 }
 
-.landing-h2-1,
-.landing-h2-info {
-  position: relative;
-}
-
-.landing-h2-2,
-.landing-h2-info-1 {
-  position: absolute;
-  top: 0;
-  left: 0;
+@keyframes neoTicker {
+  0%, 22% {
+    transform: translateY(0%);
+  }
+  33%, 55% {
+    transform: translateY(-25%);
+  }
+  66%, 88% {
+    transform: translateY(-50%);
+  }
+  100% {
+    transform: translateY(-75%);
+  }
 }
 
 @media screen and (max-width: 600px) {
@@ -190,15 +196,14 @@
     padding: 0 12px;
     box-sizing: border-box;
   }
-  .landing-rotator-wrapper {
-    height: 36px;
+  .landing-ticker-box {
+    height: 34px;
     width: 100%;
   }
-  .landing-info-h2,
-  .landing-info-h2-sub {
+  .landing-ticker-item {
     font-size: 24px;
-    line-height: 32px;
-    height: 32px;
+    line-height: 34px;
+    height: 34px;
   }
   .character-model {
     height: 55vh;
@@ -216,7 +221,8 @@
     height: 80vh;
   }
   .landing-intro h1 { font-size: 44px; line-height: 48px; }
-  .landing-info-h2, .landing-info-h2-sub { font-size: 40px; line-height: 46px; }
+  .landing-ticker-box { height: 48px; }
+  .landing-ticker-item { font-size: 40px; line-height: 48px; height: 48px; }
 }
 
 @media screen and (min-width: 1025px) {
@@ -265,7 +271,9 @@
     left: 75%;
   }
   .landing-intro h1 { font-size: 52px; line-height: 56px; }
-  .landing-info-h2, .landing-info-h2-sub { font-size: 46px; line-height: 50px; }
+  .landing-ticker-box { height: 54px; }
+  .landing-ticker-item { font-size: 46px; line-height: 54px; height: 54px; }
 }
+
 
 

@@ -18,15 +18,13 @@ const Landing = ({ children }: PropsWithChildren) => {
           <div className="neo-hero-tag neo-tag-blue">
             <span className="neo-star">★</span> FULL-STACK &amp;
           </div>
-          <div className="landing-rotator-wrapper">
-            <h2 className="landing-info-h2">
-              <div className="landing-h2-1">AI Tools</div>
-              <div className="landing-h2-2">Systems</div>
-            </h2>
-            <h2 className="landing-info-h2-sub">
-              <div className="landing-h2-info">Systems</div>
-              <div className="landing-h2-info-1">AI Tools</div>
-            </h2>
+          <div className="landing-ticker-box">
+            <div className="landing-ticker-track">
+              <div className="landing-ticker-item">AI TOOLS ✦</div>
+              <div className="landing-ticker-item">SYSTEMS ✦</div>
+              <div className="landing-ticker-item">WEB APPS ✦</div>
+              <div className="landing-ticker-item">AI TOOLS ✦</div>
+            </div>
           </div>
         </div>
       </div>
@@ -36,5 +34,6 @@ const Landing = ({ children }: PropsWithChildren) => {
 };
 
 export default Landing;
+
 
 
