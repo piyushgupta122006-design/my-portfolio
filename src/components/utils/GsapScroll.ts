@@ -87,7 +87,7 @@ export function setCharTimeline(
       .to(camera.position, { z: 75, y: 8.4, duration: 6, delay: 2, ease: "power3.inOut" }, 0)
       .to(".about-section", { y: "30%", duration: 6 }, 0)
       .to(".about-section", { opacity: 0, delay: 3, duration: 2 }, 0)
-      .to(".character-model", { pointerEvents: "none", x: "-24%", delay: 2, duration: 5 }, 0)
+      .to(".character-model", { pointerEvents: "none", x: "-15%", delay: 2, duration: 5 }, 0)
       .to(character.rotation, { y: 0.92, x: 0.12, delay: 3, duration: 3 }, 0);
 
     if (neckBone) {
