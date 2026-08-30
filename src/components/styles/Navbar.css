@@ -88,19 +88,28 @@
   text-underline-offset: 4px;
 }
 
+.navbar-resume-item {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+}
+
 .navbar-resume-btn {
   display: inline-flex;
   align-items: center;
-  gap: 5px;
+  gap: 6px;
   background: var(--neoGreen);
   color: var(--neoBlack) !important;
   border: var(--neoBorderThin);
   padding: 6px 16px;
   border-radius: var(--neoRadiusPill);
+  font-family: inherit;
   font-size: 13px;
   font-weight: 900;
   letter-spacing: 0.5px;
   text-decoration: none;
+  cursor: pointer;
+  outline: none;
   transition: all 0.2s cubic-bezier(0.2, 0, 0, 1);
   box-shadow: var(--neoShadowSm);
 }
@@ -114,6 +123,78 @@
 .navbar-resume-btn:active {
   transform: translate(2px, 2px);
   box-shadow: 1px 1px 0px #000;
+}
+
+/* ── Resume Dropdown Menu ── */
+.resume-dropdown-menu {
+  position: absolute;
+  top: calc(100% + 10px);
+  right: 0;
+  min-width: 175px;
+  background: var(--neoWhite);
+  border: var(--neoBorderThin);
+  box-shadow: 4px 4px 0px #000;
+  border-radius: var(--neoRadiusSm);
+  padding: 6px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  z-index: 10000;
+  animation: neoDropdownAnim 0.18s cubic-bezier(0.2, 0, 0, 1);
+  transform-origin: top right;
+}
+
+@keyframes neoDropdownAnim {
+  0% {
+    opacity: 0;
+    transform: translateY(-6px) scale(0.95);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.resume-dropdown-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 12px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 800;
+  color: var(--neoBlack) !important;
+  text-decoration: none !important;
+  transition: all 0.15s ease;
+  border: 1.5px solid transparent;
+}
+
+.dropdown-item-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.dropdown-item-arrow {
+  font-size: 13px;
+  font-weight: 900;
+  color: #6b7280;
+}
+
+.resume-dropdown-item:hover {
+  background: var(--bgCream);
+  border: 1.5px solid #000;
+  box-shadow: 2px 2px 0px #000;
+  transform: translate(-1px, -1px);
+  text-decoration: none !important;
+}
+
+.resume-dropdown-item:hover .dropdown-item-arrow {
+  color: var(--neoBlack);
+}
+
+.dropdown-item-download:hover {
+  background: var(--neoPinkLight);
 }
 
 @media only screen and (min-width: 900px) {
@@ -146,5 +227,14 @@
     font-size: 14px;
     padding: 3px 8px;
   }
+  .resume-dropdown-menu {
+    min-width: 145px;
+    top: calc(100% + 8px);
+  }
+  .resume-dropdown-item {
+    font-size: 11px;
+    padding: 6px 10px;
+  }
 }
+
 
