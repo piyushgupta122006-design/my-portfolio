@@ -36,7 +36,7 @@ const Career = () => {
                 <h4>BSc Computer Science</h4>
                 <h5>BNN College, Bhiwandi (SYCS)</h5>
               </div>
-              <div className="career-date-pill pill-blue">2024–27</div>
+              <div className="career-date-pill pill-blue">2025–2028</div>
             </div>
             <p>
               2nd Year undergraduate curriculum with deep focus on Data Structures &amp;

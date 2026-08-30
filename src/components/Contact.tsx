@@ -40,7 +40,7 @@ const Contact = () => {
               <p>
                 Bachelor of Science in Computer Science (BSc CS)
                 <br />
-                <span className="contact-college">BNN College, Bhiwandi — 2024–2027 (SYCS)</span>
+                <span className="contact-college">BNN College, Bhiwandi — 2025–2028 (SYCS)</span>
               </p>
             </div>
 

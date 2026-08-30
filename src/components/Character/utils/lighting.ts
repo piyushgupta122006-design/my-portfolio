@@ -7,8 +7,8 @@ const setLighting = (scene: THREE.Scene) => {
   const ambientLight = new THREE.AmbientLight(0xffffff, 1.1);
   scene.add(ambientLight);
 
-  const directionalLight = new THREE.DirectionalLight(0xffffff, 0);
-  directionalLight.intensity = 0;
+  const directionalLight = new THREE.DirectionalLight(0xffffff, 1.2);
+  directionalLight.intensity = 1.2;
   directionalLight.position.set(-0.47, 1.2, 2);
   directionalLight.castShadow = true;
   directionalLight.shadow.mapSize.width = 1024;
@@ -22,7 +22,6 @@ const setLighting = (scene: THREE.Scene) => {
   pointLight.castShadow = true;
   scene.add(pointLight);
 
-
   // Load HDR environment map
   try {
     new RGBELoader()
@@ -32,7 +31,7 @@ const setLighting = (scene: THREE.Scene) => {
         function (texture) {
           texture.mapping = THREE.EquirectangularReflectionMapping;
           scene.environment = texture;
-          scene.environmentIntensity = 0;
+          scene.environmentIntensity = 0.64;
           scene.environmentRotation.set(5.76, 85.85, 1);
         },
         undefined,
@@ -52,24 +51,13 @@ const setLighting = (scene: THREE.Scene) => {
     }
   }
 
-  const duration = 2;
-  const ease = "power2.inOut";
   function turnOnLights() {
-    gsap.to(scene, {
-      environmentIntensity: 0.64,
-      duration: duration,
-      ease: ease,
-    });
-    gsap.to(directionalLight, {
-      intensity: 1.2,
-      duration: duration,
-      ease: ease,
-    });
+    scene.environmentIntensity = 0.64;
+    directionalLight.intensity = 1.2;
     gsap.to(".character-rim", {
       y: "55%",
       opacity: 1,
-      delay: 0.2,
-      duration: 2,
+      duration: 0.5,
     });
   }
 

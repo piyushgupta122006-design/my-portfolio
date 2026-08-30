@@ -83,10 +83,8 @@ const Scene = () => {
           screenLight = charScene.getObjectByName("screenlight") || null;
 
           progress.loaded().then(() => {
-            setTimeout(() => {
-              light.turnOnLights();
-              animations.startIntro();
-            }, 2500);
+            light.turnOnLights();
+            animations.startIntro();
           });
         }
       });

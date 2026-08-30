@@ -14,20 +14,20 @@ const Loading = ({ percent }: { percent: number }) => {
       setLoaded(true);
       setTimeout(() => {
         setIsLoaded(true);
-      }, 700);
-    }, 400);
+      }, 400);
+    }, 250);
   }
 
   useEffect(() => {
     import("./utils/initialFX").then((module) => {
       if (isLoaded) {
         setClicked(true);
+        if (module.initialFX) {
+          module.initialFX();
+        }
         setTimeout(() => {
-          if (module.initialFX) {
-            module.initialFX();
-          }
           setIsLoading(false);
-        }, 600);
+        }, 400);
       }
     });
   }, [isLoaded, setIsLoading]);
