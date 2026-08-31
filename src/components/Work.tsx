@@ -1,4 +1,5 @@
-import { useState, useCallback } from "react";
+import { useState, useCallback, useEffect } from "react";
+import { createPortal } from "react-dom";
 import "./styles/Work.css";
 import WorkImage from "./WorkImage";
 import { MdArrowBack, MdArrowForward, MdClose } from "react-icons/md";
@@ -60,6 +61,16 @@ const Work = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isAnimating, setIsAnimating] = useState(false);
   const [showFlashCrushModal, setShowFlashCrushModal] = useState(false);
+
+  useEffect(() => {
+    if (showFlashCrushModal) {
+      const prevOverflow = document.body.style.overflow;
+      document.body.style.overflow = "hidden";
+      return () => {
+        document.body.style.overflow = prevOverflow;
+      };
+    }
+  }, [showFlashCrushModal]);
 
   const goToSlide = useCallback(
     (index: number) => {
@@ -240,117 +251,120 @@ const Work = () => {
         </div>
       </div>
 
-      {/* FlashCrush Architecture & 17+ Tools Modal */}
-      {showFlashCrushModal && (
-        <div className="project-modal-overlay" onClick={() => setShowFlashCrushModal(false)}>
-          <div
-            className="project-modal-card neo-window-card"
-            onClick={(e) => e.stopPropagation()}
-          >
-            <div className="neo-card-topbar">
-              <div className="neo-window-dots">
-                <span className="neo-dot red" onClick={() => setShowFlashCrushModal(false)}></span>
-                <span className="neo-dot yellow"></span>
-                <span className="neo-dot green"></span>
-              </div>
-              <span className="neo-card-filename">FLASHCRUSH_SYSTEM_SPEC.EXE ✦</span>
-              <button
-                className="modal-close-btn"
-                onClick={() => setShowFlashCrushModal(false)}
-                aria-label="Close modal"
-              >
-                <MdClose />
-              </button>
-            </div>
-
-            <div className="project-modal-body">
-              <div className="modal-header-badge">
-                <span className="neo-badge-pink">⚡ PRODUCTION SYSTEM BREAKDOWN</span>
-              </div>
-              <h3 className="modal-title">FlashCrush — High-Performance File Suite</h3>
-              <p className="modal-subtitle">
-                100% Client-Side WebAssembly Processing &bull; Zero Server Latency &bull; On-Device AI
-              </p>
-
-              {/* Tools Categories */}
-              <div className="modal-tools-grid">
-                <div className="modal-tool-box">
-                  <h4>📄 8+ PDF Super-Tools</h4>
-                  <ul>
-                    <li><strong>Lossless PDF Compressor:</strong> Up to 80% size reduction via custom DPI algorithms.</li>
-                    <li><strong>PDF Merge &amp; Splitter:</strong> Drag-and-drop page organizer &amp; ZIP export.</li>
-                    <li><strong>PDF to Image:</strong> 300 DPI high-res page rendering to JPG/PNG/WebP.</li>
-                    <li><strong>AES-256 Security:</strong> Password encryption, unlocking &amp; watermark removal.</li>
-                    <li><strong>In-Browser OCR:</strong> Optical Character Recognition supporting 12+ languages.</li>
-                  </ul>
+      {/* FlashCrush Architecture & 17+ Tools Modal (Portal to body) */}
+      {showFlashCrushModal &&
+        typeof document !== "undefined" &&
+        createPortal(
+          <div className="project-modal-overlay" onClick={() => setShowFlashCrushModal(false)}>
+            <div
+              className="project-modal-card neo-window-card"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <div className="neo-card-topbar">
+                <div className="neo-window-dots">
+                  <span className="neo-dot red" onClick={() => setShowFlashCrushModal(false)}></span>
+                  <span className="neo-dot yellow"></span>
+                  <span className="neo-dot green"></span>
                 </div>
-
-                <div className="modal-tool-box">
-                  <h4>🖼️ 7+ Image Power Tools</h4>
-                  <ul>
-                    <li><strong>Target KB Compressor:</strong> Exact byte-targeting with before/after preview.</li>
-                    <li><strong>Bulk Image Compressor:</strong> Batch processes 20&ndash;50+ files with ZIP package.</li>
-                    <li><strong>Multi-Format Converter:</strong> JPG, PNG, WebP, AVIF, SVG, BMP &amp; GIF.</li>
-                    <li><strong>On-Device AI BG Remover:</strong> ONNX Runtime WebAssembly segmentation.</li>
-                    <li><strong>Passport / Exam Studio:</strong> Standard dimensions for Passports, Visas &amp; SSC.</li>
-                  </ul>
-                </div>
-
-                <div className="modal-tool-box full-width">
-                  <h4>📱 Cloud &amp; Offline Architecture</h4>
-                  <ul>
-                    <li><strong>IndexedDB Offline Vault:</strong> 100% private in-browser persistent file history without tracking.</li>
-                    <li><strong>Google Drive Sync:</strong> Seamless OAuth 2.0 integration to import &amp; backup directly to cloud.</li>
-                    <li><strong>Progressive Web App (PWA):</strong> Service Worker caching for complete offline native app installation.</li>
-                  </ul>
-                </div>
-              </div>
-
-              {/* Metrics Row */}
-              <div className="modal-metrics-row">
-                <div className="modal-metric-card">
-                  <span className="metric-num">17+</span>
-                  <span className="metric-lbl">Power Tools</span>
-                </div>
-                <div className="modal-metric-card">
-                  <span className="metric-num">0 ms</span>
-                  <span className="metric-lbl">Server Upload Delay</span>
-                </div>
-                <div className="modal-metric-card">
-                  <span className="metric-num">100%</span>
-                  <span className="metric-lbl">Data Confidentiality</span>
-                </div>
-                <div className="modal-metric-card">
-                  <span className="metric-num">$0 / mo</span>
-                  <span className="metric-lbl">Server Compute Cost</span>
-                </div>
-              </div>
-
-              {/* Modal Footer Actions */}
-              <div className="modal-footer-actions">
-                <a
-                  href="https://piyush-flash-crush-files.vercel.app/"
-                  target="_blank"
-                  rel="noreferrer"
-                  className="neo-btn-action neo-btn-live"
+                <span className="neo-card-filename">FLASHCRUSH_SYSTEM_SPEC.EXE ✦</span>
+                <button
+                  className="modal-close-btn"
+                  onClick={() => setShowFlashCrushModal(false)}
+                  aria-label="Close modal"
                 >
-                  <span>Launch FlashCrush Web App</span>
-                  <FiExternalLink />
-                </a>
-                <a
-                  href="https://github.com/piyushgupta122006-design/flash-crush-files"
-                  target="_blank"
-                  rel="noreferrer"
-                  className="neo-btn-action neo-btn-github"
-                >
-                  <FiGithub />
-                  <span>GitHub Repository</span>
-                </a>
+                  <MdClose />
+                </button>
+              </div>
+
+              <div className="project-modal-body">
+                <div className="modal-header-badge">
+                  <span className="neo-badge-pink">⚡ PRODUCTION SYSTEM BREAKDOWN</span>
+                </div>
+                <h3 className="modal-title">FlashCrush — High-Performance File Suite</h3>
+                <p className="modal-subtitle">
+                  100% Client-Side WebAssembly Processing &bull; Zero Server Latency &bull; On-Device AI
+                </p>
+
+                {/* Tools Categories */}
+                <div className="modal-tools-grid">
+                  <div className="modal-tool-box">
+                    <h4>📄 8+ PDF Super-Tools</h4>
+                    <ul>
+                      <li><strong>Lossless PDF Compressor:</strong> Up to 80% size reduction via custom DPI algorithms.</li>
+                      <li><strong>PDF Merge &amp; Splitter:</strong> Drag-and-drop page organizer &amp; ZIP export.</li>
+                      <li><strong>PDF to Image:</strong> 300 DPI high-res page rendering to JPG/PNG/WebP.</li>
+                      <li><strong>AES-256 Security:</strong> Password encryption, unlocking &amp; watermark removal.</li>
+                      <li><strong>In-Browser OCR:</strong> Optical Character Recognition supporting 12+ languages.</li>
+                    </ul>
+                  </div>
+
+                  <div className="modal-tool-box">
+                    <h4>🖼️ 7+ Image Power Tools</h4>
+                    <ul>
+                      <li><strong>Target KB Compressor:</strong> Exact byte-targeting with before/after preview.</li>
+                      <li><strong>Bulk Image Compressor:</strong> Batch processes 20&ndash;50+ files with ZIP package.</li>
+                      <li><strong>Multi-Format Converter:</strong> JPG, PNG, WebP, AVIF, SVG, BMP &amp; GIF.</li>
+                      <li><strong>On-Device AI BG Remover:</strong> ONNX Runtime WebAssembly segmentation.</li>
+                      <li><strong>Passport / Exam Studio:</strong> Standard dimensions for Passports, Visas &amp; SSC.</li>
+                    </ul>
+                  </div>
+
+                  <div className="modal-tool-box full-width">
+                    <h4>📱 Cloud &amp; Offline Architecture</h4>
+                    <ul>
+                      <li><strong>IndexedDB Offline Vault:</strong> 100% private in-browser persistent file history without tracking.</li>
+                      <li><strong>Google Drive Sync:</strong> Seamless OAuth 2.0 integration to import &amp; backup directly to cloud.</li>
+                      <li><strong>Progressive Web App (PWA):</strong> Service Worker caching for complete offline native app installation.</li>
+                    </ul>
+                  </div>
+                </div>
+
+                {/* Metrics Row */}
+                <div className="modal-metrics-row">
+                  <div className="modal-metric-card">
+                    <span className="metric-num">17+</span>
+                    <span className="metric-lbl">Power Tools</span>
+                  </div>
+                  <div className="modal-metric-card">
+                    <span className="metric-num">0 ms</span>
+                    <span className="metric-lbl">Server Upload Delay</span>
+                  </div>
+                  <div className="modal-metric-card">
+                    <span className="metric-num">100%</span>
+                    <span className="metric-lbl">Data Confidentiality</span>
+                  </div>
+                  <div className="modal-metric-card">
+                    <span className="metric-num">$0 / mo</span>
+                    <span className="metric-lbl">Server Compute Cost</span>
+                  </div>
+                </div>
+
+                {/* Modal Footer Actions */}
+                <div className="modal-footer-actions">
+                  <a
+                    href="https://piyush-flash-crush-files.vercel.app/"
+                    target="_blank"
+                    rel="noreferrer"
+                    className="neo-btn-action neo-btn-live"
+                  >
+                    <span>Launch FlashCrush Web App</span>
+                    <FiExternalLink />
+                  </a>
+                  <a
+                    href="https://github.com/piyushgupta122006-design/flash-crush-files"
+                    target="_blank"
+                    rel="noreferrer"
+                    className="neo-btn-action neo-btn-github"
+                  >
+                    <FiGithub />
+                    <span>GitHub Repository</span>
+                  </a>
+                </div>
               </div>
             </div>
-          </div>
-        </div>
-      )}
+          </div>,
+          document.body
+        )}
     </div>
   );
 };
