@@ -8,15 +8,17 @@ import { FiExternalLink, FiGithub, FiZap } from "react-icons/fi";
 const projects = [
   {
     title: "BNN CS Study Hub (FYCS Library)",
-    category: "Academic Digital Portal (107+ Active Student Users)",
+    category: "Academic Digital Vault & Real-Time Student Portal (107+ Active Users)",
     role: "Team: Rishikesh Shau (Lead / Primary) • Piyush Gupta (Secondary)",
     description:
-      "A centralized digital repository and interactive academic portal built for Mumbai University CS students. Serves 107+ active students with organized syllabus materials, secure notes distribution, and semester question papers.",
-    tools: "React.js, Firebase Auth, Firestore, Serverless",
+      "A centralized digital repository and interactive academic portal built for Mumbai University CS students. Serves 107+ active students with 4 semesters of curated syllabus materials, in-browser PDF reader, and real-time Firestore analytics.",
+    tools: "React 19, Vite 7, Firebase Firestore, Firebase Auth, Tailwind CSS 4, Framer Motion, PWA",
     image: "/assets/project-studyhub.png",
     link: "https://fycs-study-hub.vercel.app/",
     github: null,
     isPrivate: true,
+    hasModal: true,
+    modalType: "studyhub",
   },
   {
     title: "FlashCrush",
@@ -30,6 +32,7 @@ const projects = [
     github: "https://github.com/piyushgupta122006-design/flash-crush-files",
     isPrivate: false,
     hasModal: true,
+    modalType: "flashcrush",
   },
   {
     title: "StressSense",
@@ -42,6 +45,7 @@ const projects = [
     link: "https://stress-sense-pvs.vercel.app/",
     github: null,
     isPrivate: false,
+    hasModal: false,
   },
   {
     title: "Quick QR Tool",
@@ -54,23 +58,24 @@ const projects = [
     link: "https://piyushgupta122006-design.github.io/QR-Generator/",
     github: "https://github.com/piyushgupta122006-design/QR-Generator",
     isPrivate: false,
+    hasModal: false,
   },
 ];
 
 const Work = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isAnimating, setIsAnimating] = useState(false);
-  const [showFlashCrushModal, setShowFlashCrushModal] = useState(false);
+  const [activeModal, setActiveModal] = useState<"flashcrush" | "studyhub" | null>(null);
 
   useEffect(() => {
-    if (showFlashCrushModal) {
+    if (activeModal) {
       const prevOverflow = document.body.style.overflow;
       document.body.style.overflow = "hidden";
       return () => {
         document.body.style.overflow = prevOverflow;
       };
     }
-  }, [showFlashCrushModal]);
+  }, [activeModal]);
 
   const goToSlide = useCallback(
     (index: number) => {
@@ -210,11 +215,19 @@ const Work = () => {
                               <button
                                 type="button"
                                 className="neo-btn-action neo-btn-spec"
-                                onClick={() => setShowFlashCrushModal(true)}
+                                onClick={() =>
+                                  setActiveModal(
+                                    project.modalType as "flashcrush" | "studyhub"
+                                  )
+                                }
                                 data-cursor="disable"
                               >
                                 <FiZap />
-                                <span>17+ Tools &amp; Spec</span>
+                                <span>
+                                  {project.modalType === "flashcrush"
+                                    ? "17+ Tools & Spec"
+                                    : "Vault Spec & Features"}
+                                </span>
                               </button>
                             )}
                           </div>
@@ -251,25 +264,130 @@ const Work = () => {
         </div>
       </div>
 
-      {/* FlashCrush Architecture & 17+ Tools Modal (Portal to body) */}
-      {showFlashCrushModal &&
+      {/* BNN CS Study Hub Architecture & Vault Modal */}
+      {activeModal === "studyhub" &&
         typeof document !== "undefined" &&
         createPortal(
-          <div className="project-modal-overlay" onClick={() => setShowFlashCrushModal(false)}>
+          <div className="project-modal-overlay" onClick={() => setActiveModal(null)}>
             <div
               className="project-modal-card neo-window-card"
               onClick={(e) => e.stopPropagation()}
             >
               <div className="neo-card-topbar">
                 <div className="neo-window-dots">
-                  <span className="neo-dot red" onClick={() => setShowFlashCrushModal(false)}></span>
+                  <span className="neo-dot red" onClick={() => setActiveModal(null)}></span>
+                  <span className="neo-dot yellow"></span>
+                  <span className="neo-dot green"></span>
+                </div>
+                <span className="neo-card-filename">STUDYHUB_SYSTEM_SPEC.EXE ✦</span>
+                <button
+                  className="modal-close-btn"
+                  onClick={() => setActiveModal(null)}
+                  aria-label="Close modal"
+                >
+                  <MdClose />
+                </button>
+              </div>
+
+              <div className="project-modal-body">
+                <div className="modal-header-badge">
+                  <span className="neo-badge-pink">⚡ ACADEMIC PLATFORM ARCHITECTURE</span>
+                </div>
+                <h3 className="modal-title">BNN CS Study Hub (FYCS Library)</h3>
+                <p className="modal-subtitle">
+                  Academic Digital Vault &bull; 107+ Active CS Students &bull; Real-Time Firestore Engine
+                </p>
+
+                {/* Feature Grid */}
+                <div className="modal-tools-grid">
+                  <div className="modal-tool-box">
+                    <h4>📚 Semester-Wise Academic Vault</h4>
+                    <ul>
+                      <li><strong>4 Semesters Covered:</strong> Full syllabus materials for FYCS &amp; SYCS batches.</li>
+                      <li><strong>Fast In-Browser PDF Reader:</strong> Integrated `pdfjs-dist` for instant document viewing.</li>
+                      <li><strong>Curated Notes &amp; Practicals:</strong> Subject-wise unit notes, assignments &amp; Mumbai Univ PYQs.</li>
+                    </ul>
+                  </div>
+
+                  <div className="modal-tool-box">
+                    <h4>🔐 Google Auth &amp; Granular RBAC</h4>
+                    <ul>
+                      <li><strong>One-Tap OAuth Sign-In:</strong> Secure student authentication via Firebase Auth.</li>
+                      <li><strong>Role-Based Access Control:</strong> Strict segregation between Admin &amp; Student permissions.</li>
+                      <li><strong>Security &amp; Audit Logs:</strong> Automated downloader tracking and access moderation.</li>
+                    </ul>
+                  </div>
+
+                  <div className="modal-tool-box full-width">
+                    <h4>📊 Visitor &amp; Download Analytics Engine</h4>
+                    <ul>
+                      <li><strong>Firestore Atomic Counters:</strong> Real-time tracking of resource downloads &amp; active student sessions.</li>
+                      <li><strong>Material Popularity Metrics:</strong> Identifies high-demand study topics before exams.</li>
+                      <li><strong>Progressive Web App (PWA):</strong> Vite 7 service worker caching for offline access on mobile devices.</li>
+                    </ul>
+                  </div>
+                </div>
+
+                {/* Metrics Row */}
+                <div className="modal-metrics-row">
+                  <div className="modal-metric-card">
+                    <span className="metric-num">107+</span>
+                    <span className="metric-lbl">Active Students</span>
+                  </div>
+                  <div className="modal-metric-card">
+                    <span className="metric-num">4 Semesters</span>
+                    <span className="metric-lbl">Curriculum Vault</span>
+                  </div>
+                  <div className="modal-metric-card">
+                    <span className="metric-num">0 ms</span>
+                    <span className="metric-lbl">PDF Reader Delay</span>
+                  </div>
+                  <div className="modal-metric-card">
+                    <span className="metric-num">Real-Time</span>
+                    <span className="metric-lbl">Firestore Sync</span>
+                  </div>
+                </div>
+
+                {/* Modal Footer Actions */}
+                <div className="modal-footer-actions">
+                  <a
+                    href="https://fycs-study-hub.vercel.app/"
+                    target="_blank"
+                    rel="noreferrer"
+                    className="neo-btn-action neo-btn-live"
+                  >
+                    <span>Launch BNN CS Study Hub</span>
+                    <FiExternalLink />
+                  </a>
+                  <div className="private-repo-badge">
+                    <span>🔒 Academic Private Repo</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>,
+          document.body
+        )}
+
+      {/* FlashCrush Architecture & 17+ Tools Modal */}
+      {activeModal === "flashcrush" &&
+        typeof document !== "undefined" &&
+        createPortal(
+          <div className="project-modal-overlay" onClick={() => setActiveModal(null)}>
+            <div
+              className="project-modal-card neo-window-card"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <div className="neo-card-topbar">
+                <div className="neo-window-dots">
+                  <span className="neo-dot red" onClick={() => setActiveModal(null)}></span>
                   <span className="neo-dot yellow"></span>
                   <span className="neo-dot green"></span>
                 </div>
                 <span className="neo-card-filename">FLASHCRUSH_SYSTEM_SPEC.EXE ✦</span>
                 <button
                   className="modal-close-btn"
-                  onClick={() => setShowFlashCrushModal(false)}
+                  onClick={() => setActiveModal(null)}
                   aria-label="Close modal"
                 >
                   <MdClose />
@@ -370,5 +488,6 @@ const Work = () => {
 };
 
 export default Work;
+
 
 
