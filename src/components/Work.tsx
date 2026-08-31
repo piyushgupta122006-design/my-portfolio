@@ -14,8 +14,8 @@ const projects = [
     isPrivate: true,
   },
   {
-    title: "Flash Crush-Files",
-    category: "Client-Side Compression & Drive Integration",
+    title: "FlashCrush",
+    category: "High-Performance File Suite & Drive Sync",
     role: "Full-Stack Engineer",
     tools: "React.js, Vite, Google Drive API, OAuth 2.0",
     image: "/assets/project-flashcrush.png",
